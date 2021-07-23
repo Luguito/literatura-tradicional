@@ -1,0 +1,47 @@
+footer {
+  background-color: #eb5757;
+  color: white;
+  font-weight: 600;
+
+  .list {
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    & > div {
+      width: 40%;
+      p {
+        font-size: 1.5rem;
+      }
+      ul {
+        list-style: none;
+        padding-left: 5px;
+        li {
+          padding-top: 1em;
+        }
+      }
+    }
+  }
+  .patners {
+    p {
+      font-size: 1.5rem;
+      padding-left: 2.5em;
+    }
+    & > div {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      img {
+        border-radius: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+  .address {
+    display: flex;
+    justify-content: center;
+    padding-top: 1em;
+    p {
+      text-align: center;
+    }
+  }
+}
