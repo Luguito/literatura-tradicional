@@ -1,0 +1,73 @@
+main.project_container {
+  overflow-y: scroll;
+  header {
+    img {
+      width: 100%;
+      height: 40em;
+      object-fit: cover;
+    }
+  }
+  section.list_project {
+    display: flex;
+    aside {
+      width: 20%;
+      margin-left: 15px;
+      & > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        color: white;
+        font-weight: 500;
+        background-color: #eb5757;
+        margin-top: 0.8em;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+    article {
+      width: 80%;
+      margin-left: 2em;
+      & > div {
+        h1 {
+          font-size: 30px;
+          color: rgba(0, 0, 0, 0.8);
+          display: flex;
+          flex-direction: column;
+          line-height: 2em;
+        }
+        h1::after {
+          content: "";
+          border-bottom: 6px solid #eb5757;
+          border-radius: 7px;
+          width: 5.5em;
+        }
+        p {
+          text-align: justify;
+          width: 90%;
+          line-height: 1.5em;
+        }
+      }
+      .intoView {
+        animation-name: pulse-section;
+        animation-duration: 1s;
+        animation-delay: 0.6s;
+      }
+      div:last-child {
+        margin-bottom: 5em;
+      }
+    }
+  }
+}
+
+@keyframes pulse-section {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

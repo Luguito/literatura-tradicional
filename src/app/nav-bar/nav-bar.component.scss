@@ -1,0 +1,41 @@
+.container_nav {
+  position: absolute;
+  top: 0;
+  height: 10em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: rgb(53 50 56 / 35%);
+  gap: 5em;
+  color: white;
+
+  img {
+    height: 6em;
+    width: 9em;
+    object-fit: contain;
+    margin-left: 10em;
+  }
+  .right_info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-weight: 700;
+    span {
+      font-size: 2.2rem;
+    }
+    & > :nth-child(2) {
+      display: flex;
+      align-items: center;
+      gap: 2em;
+      .active_link {
+        border-bottom: 4px solid red;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+        font-size: 1.1rem;
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
