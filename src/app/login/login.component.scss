@@ -1,0 +1,76 @@
+@forward '../../scss/base';
+@use '../../scss/base' as Colors;
+
+.main_login_container {
+    background-image: url("../../assets/Inicio\ de\ sesion.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .box_container {
+        width: 30em;
+        height: 30em;
+        background-color: white;
+        padding: 1em;
+        border-radius: 10px;
+        header h2.title_sz {
+            text-align: center;
+            color: Colors.$body_font;
+            margin-bottom: 14px;
+        }
+        header > small.title_sm {
+            display: flex;
+            justify-content: center;
+            color: Colors.$body_font;
+        }
+        .body_login_container {
+            margin-top: 2em;
+            div.forms_field > label {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                input {
+                    height: 3em;
+                    width: 20em;
+                    border-radius: 10px;
+                    margin-top: 1em;
+                    border: none;
+                    outline: none;
+                    box-shadow: 1px 1px 5px 0px rgb(0 0 0 / 22%);
+                    padding-left: 1em;
+                }
+                input::placeholder{
+                    padding-left: 0.7em;
+                }
+            }
+            div.forms_field {
+                margin-bottom: 2em;
+            }
+            a.redirect_forgot{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #94d3ee;
+            }
+            div.options_login {
+                display: flex;
+                justify-content: center;
+                margin-top: 2em;
+                gap: 2em;
+                & button {
+                    border: none;
+                    border-radius: 10px;
+                    width: 50%;
+                    height: 2.5em;
+                    background-color: Colors.$main_color;
+                    color: white;
+                    font-weight: 600;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

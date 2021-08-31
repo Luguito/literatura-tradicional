@@ -1,0 +1,64 @@
+@use '../../scss/base' as Colors;
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2em;
+    height: 4em;
+    .container_logo_nav{
+        padding: 1em;
+        img { 
+            object-fit: contain;
+        }
+    }
+    .options_nav{
+        width: 40%;
+        display: flex;
+        justify-content: space-between;
+        & > a {
+            text-decoration: none;
+            color: #404040;
+            font-weight: 600;
+            padding-bottom: 10px;
+        }
+        & > a.active {
+            border-radius: 2px;
+            border-bottom: 4px solid Colors.$main_color;
+            padding-bottom: 10px;
+            color: black;
+        }
+    }
+    .container_user_nav{
+        padding-bottom: 15px;
+    }
+}
+
+.main_container_filter_advance{
+    margin: 2em 0;
+    select {
+        margin-right: 2em;
+        margin-top: 1em;
+        overflow-wrap: break-word;
+    }
+}
+.main_list_books{
+    & > div {
+        display: flex;
+        justify-content: center;
+    }
+    & > div > table {
+        width: 90%;
+        border-collapse: separate;
+        border-spacing: 0 2em;
+        & > tr > th {
+            background-color: #FAFAFA;
+            height: 1.8em;
+            text-align: left;
+            padding-left: 0.5em;
+        }
+        & > tr > td {
+            padding-left: 0.5em;
+        }
+    }
+}

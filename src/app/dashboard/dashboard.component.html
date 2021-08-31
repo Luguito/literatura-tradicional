@@ -1,0 +1,116 @@
+<nav>
+    <div class="container_logo_nav">
+        <img src="https://literaturatradicional.co/images/logopw.jpg" alt="logo" height="100" width="100">
+    </div>
+    <div class="options_nav">
+        <a href="#" routerLink="" routerLinkActive="active">
+            Dashboard
+        </a>
+        <a href="#" routerLink="analizar-obra" routerLinkActive="active">
+            Analizar obra
+        </a>
+        <a href="#">
+            Analizar texto
+        </a>
+        <a href="#">
+            Nueva obra
+        </a>
+    </div>
+    <div class="container_user_nav">
+        <label>
+            Hola, Susanoo
+        </label>
+    </div>
+</nav>
+<!-- <section class="main_container_filter_advance">
+    <form>
+        <fieldset>
+            <legend>Busqueda Avanzada</legend>
+            <select name="Año de recolección">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+            <select name="" id="">
+                <option value="Año recolección">Año recolección</option>
+            </select>
+        </fieldset>
+    </form>
+</section> -->
+<section class="main_list_books">
+    <div>
+        <table>
+            <tr>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Titulo
+                </th>
+                <th>
+                    Contenido
+                </th>
+                <th>
+                    Region
+                </th>
+                <th>
+                    Departamento
+                </th>
+                <th>
+                    Municipio
+                </th>
+                <th>
+                    Tipo de obra
+                </th>
+            </tr>
+            <tr *ngFor="let blog of listBlog">
+                <td>
+                    {{blog._id}}
+                </td>
+                <td>
+                    {{blog.title}}
+                </td>
+                <td>
+                    {{blog.content}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+<section>
+    
+</section>

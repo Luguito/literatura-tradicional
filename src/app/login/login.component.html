@@ -1,0 +1,26 @@
+<section class="main_login_container">
+    <div class="box_container">
+        <header>
+            <h2 class="title_sz">Bienvenido</h2>
+            <small class="title_sm">
+                <b>Ingresa tu cuenta</b>
+            </small>
+        </header>
+        <div class="body_login_container" [formGroup]="logInForm">
+            <div class="forms_field">
+                <label>
+                    <input type="text" formControlName="username" placeholder="Usuario">
+                </label>
+            </div>
+            <div class="forms_field">
+                <label>
+                    <input type="text" formControlName="password" placeholder="Contraseña">
+                </label>
+            </div>
+            <a href="#" class="redirect_forgot">¿Olvidaste la contraseña?</a>
+            <div class="options_login">
+                <button (click)="sendLogIn()">Entrar</button>
+            </div>
+        </div>
+    </div>
+</section>

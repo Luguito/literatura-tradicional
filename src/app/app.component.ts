@@ -4,13 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   styleUrls: ['./app.component.scss'],
   template: ` 
-  <nav>
-    <app-nav-bar></app-nav-bar>
-  </nav>
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-  <app-footer></app-footer>
+  <router-outlet></router-outlet>
  `
 })
 export class AppComponent {
