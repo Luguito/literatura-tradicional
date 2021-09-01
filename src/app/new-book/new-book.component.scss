@@ -1,0 +1,90 @@
+.new_book_container {
+  & > header.title_new_book {
+      color: #404040;
+      padding-left: 5em;
+    .title {
+      font-size: 2.6rem;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+    }
+  }
+  .body_new_book {
+    .container_types_book {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      height: 8em;
+      border-bottom: 2px solid #40404011;
+      padding-bottom: 1em;
+      .type {
+        border: 2px solid #eb5757;
+        border-radius: 5px;
+        height: 2.6em;
+        width: 16%;
+        margin-top: 1em;
+        color: #eb5757;
+        outline: none;
+      }
+    }
+    .body_form {
+      margin-top: 3em;
+      .data_book {
+        .first_row,
+        .last_row {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          margin-bottom: 3em;
+          gap: 3em;
+          & > input[type="text"] {
+            border: none;
+            outline: none;
+            border-bottom: 2px solid #eb57578a;
+            width: 15em;
+            font-size: 1rem;
+          }
+        }
+      }
+      .content_book {
+        text-align: center;
+        textarea {
+          border: 2px solid #eb5757;
+          width: 90%;
+        }
+      }
+      .footer_book {
+          display: flex;
+          justify-content: center;
+          gap: 2.5em;
+          margin-top: 1em;
+        input {
+          border: none;
+          outline: none;
+          border-bottom: 2px solid #eb57578a;
+          width: 12em;
+          font-size: 1rem;
+        }
+        select {
+          border: 2px solid #eb5757;
+          border-radius: 5px;
+          height: 2.6em;
+          width: 16%;
+          margin-top: 1em;
+          color: #eb5757;
+          outline: none;
+        }
+        .save_btn {
+          border: none;
+          border-radius: 15px;
+          width: 9%;
+          padding: 1em;
+          background-color: #eb5757;
+          color: white;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

@@ -6,12 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarModule } from './nav-bar/nav-bar.component';
 import { Footer } from './footer/footer.component';
-import { InterceptorBlog } from '@services'
+import { InterceptorBlog } from '@services';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Footer
+    Footer,
   ],
   imports: [
     BrowserModule,

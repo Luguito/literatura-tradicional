@@ -1,0 +1,46 @@
+<section class="new_book_container">
+    <header class="title_new_book">
+        <h1 class="title">Agregar nueva obra</h1>
+        <h4 class="subtitle">Completar todos los campos</h4>
+    </header>
+    <main class="body_new_book">
+        <div class="container_types_book">
+            <select name="" id="" *ngFor="let x of [1,2,3,4,5,6,7,8]" class="type">
+                <option value="">Tipo de obra</option>
+            </select>
+        </div>
+        <form class="body_form">
+            <div class="data_book">
+                <div class="first_row">
+                    <input type="text" placeholder="Titulo">
+                    <input type="text" placeholder="Author">
+                    <input type="text" placeholder="Editorial">
+                    <input type="text" placeholder="Volumen/Editorial">
+                </div>
+                <div class="last_row">
+                    <input type="text" placeholder="Año">
+                    <input type="text" placeholder="Fuente de publicacion">
+                    <input type="text" placeholder="Link">
+                    <input type="text" placeholder="Tipo de publicación texto">
+                </div>
+            </div>
+            <div class="content_book">
+                <textarea rows="20"></textarea>
+            </div>
+            <div class="footer_book">
+                <input type="text" placeholder="Informate">
+                <input type="text" placeholder="Estado">
+                <select name="" id="">
+                    <option value="">Pais</option>
+                </select>
+                <select name="" id="">
+                    <option value="">Estado/Provincia</option>
+                </select>
+                <select name="" id="">
+                    <option value="">Ciudad/Municipio</option>
+                </select>
+                <button class="save_btn">Guardar</button>
+            </div>
+        </form>
+    </main>
+</section>
