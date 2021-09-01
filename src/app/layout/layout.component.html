@@ -1,0 +1,27 @@
+<div class="container_layout">
+    <aside class="navbar">
+        <div class="user_container">
+            <div class="img_user">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_d3SP2vKOeGFVESn5rk6xnPiQ0naW2e-ldA&usqp=CAU">
+                Camilo Sanchez
+            </div>
+        </div>
+        <ul>
+            <li routerLink="" routerLinkActive="active">
+                <i class="fas fa-columns"></i>Dashboard
+            </li>
+            <li routerLink="analizar-texto" routerLinkActive="active">
+                <i class="fas fa-book"></i>Analizar Texto
+            </li>
+            <li routerLink="analizar-obra" routerLinkActive="active">
+                <i class="fas fa-align-right"></i>Analizar Obra
+            </li>
+            <li routerLink="../nueva-obra" routerLinkActive="active">
+                <i class="fas fa-plus-circle"></i> Nueva Obra
+            </li>
+        </ul>
+    </aside>
+    <div class="render_components">
+        <router-outlet></router-outlet>
+    </div>
+</div>

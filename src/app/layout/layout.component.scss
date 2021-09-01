@@ -1,0 +1,56 @@
+.container_layout {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  .navbar {
+    background-color: #eb5757;
+    display: flex;
+    flex-direction: column;
+    width: 3.5%;
+    transition: 1s;
+    &:hover{
+        width: 13%;
+        transition: 1s;
+    }
+    .user_container {
+        height: 17%;
+        display: flex;
+        align-items: center;
+        .img_user {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            gap: 0.9em;
+            img {
+            border-radius: 50%;
+            width: 3.5em;
+            height: 3.5em;
+            object-fit: contain;
+        }
+      }
+    }
+    & > ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      padding: 0 1em;
+      color: white;
+      font-weight: 500;
+      & > li {
+        display: flex;
+        align-items: center;
+        gap: 2em;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+      .active{
+          background-color: #D75050;
+      }
+    }
+  }
+  .render_components {
+    width: 88%;
+  }
+}
