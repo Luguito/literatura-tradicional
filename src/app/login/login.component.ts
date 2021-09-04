@@ -13,9 +13,9 @@ export class LoginComponent {
 
     sendLogIn() {
         let user = this.logInForm.getRawValue();
-        this.LS.userLogin(user).subscribe((data:any) => { 
+        this.LS.userLogin(user).subscribe((data:any) => {
             sessionStorage.setItem("token", data.token)
-            this.router.navigate(['/dashboard'])
+            this.router.navigate(['/app/dashboard'])
         });
     }
 

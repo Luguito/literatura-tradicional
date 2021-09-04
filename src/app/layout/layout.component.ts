@@ -1,5 +1,5 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
@@ -17,11 +17,15 @@ export class LayoutComponent implements OnInit {
 
 }
 
-@NgModule({
-  imports: [RouterModule.forChild([
-    { path: 'dashboard', component:LayoutComponent, loadChildren: () => import('../dashboard/dashboard.component').then(m => m.DashboardModule) },
+const routes:Routes = [
+  {path: '', component:LayoutComponent, children: [
+    { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.component').then(m => m.DashboardModule) },
     { path: 'nueva-obra', loadChildren: () => import('../new-book/new-book.component').then(m => m.NewBookModule) }
-  ])],
+  ]}
+]
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class LayoutRouting { }
