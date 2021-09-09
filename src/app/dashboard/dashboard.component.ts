@@ -1,29 +1,64 @@
-import { Component, NgModule, OnInit} from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../home/home.component';
-import { BlogService } from '@services';
+import { BlogService, ObraService } from '../services';
 import { CommonModule } from '@angular/common';
-
+import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms'
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls:['./dashboard.component.scss']
+    styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
+    Object = Object;
     listBlog: Array<any>;
-    constructor(private blog:BlogService) { }
+    listFilters: Array<any>;
+    filterGroup: FormGroup = this.filtersForm;
+    constructor(private blog: BlogService, private obService: ObraService, private fb: FormBuilder) { }
 
-    ngOnInit(){
+    ngOnInit() {
+        this.obService.getFilters().toPromise().then(filters => {
+            this.listFilters = filters.data;
+            console.log(this.listFilters)
+        });
         this.blog.getPost().toPromise().then(blog => {
             this.listBlog = blog.data['docs'];
-            console.log(blog)
         })
+    }
+
+    get filtersForm(): FormGroup {
+        return this.fb.group({
+            'type': [''],
+            'genre': [''],
+            'genreType': [],
+            'narrativeProseType': [],
+            'lyricProseType': [],
+            'lyricVerseType': [],
+            'country': [],
+            'state': [],
+            'city': [],
+            'title': [],
+        })
+    }
+
+    saveFilter(type: string, { target: { value } }) {
+        this.filterGroup.get(type).setValue(value);
+        console.log(this.filterGroup)
+    }
+
+    filtrarObras() {
+        let obj = {};
+        for (let key in this.filterGroup.controls) {
+            if (this.filterGroup.get(key).value !== null && this.filterGroup.get(key).value.length > 0) {
+                obj[key] = this.filterGroup.get(key).value
+            }
+        }
+        console.log(obj)
+        this.obService.postFilters(obj).subscribe(v => console.log(v))
     }
 }
 
 const routes: Routes = [
     { path: '', component: DashboardComponent },
-    { path: 'home', component: HomeComponent }
 ]
 
 @NgModule({
@@ -34,7 +69,7 @@ export class DashboardRouting { }
 
 @NgModule({
     declarations: [DashboardComponent],
-    imports: [DashboardRouting, CommonModule],
+    imports: [DashboardRouting, CommonModule, ReactiveFormsModule, FormsModule],
     exports: [DashboardComponent]
 })
 export class DashboardModule { }

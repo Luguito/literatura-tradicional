@@ -1,6 +1,7 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from '../dashboard/dashboard.component';
+import {PostsComponent } from '../posts/posts.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
@@ -17,11 +18,14 @@ export class LayoutComponent implements OnInit {
 
 }
 
-const routes:Routes = [
-  {path: '', component:LayoutComponent, children: [
-    { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.component').then(m => m.DashboardModule) },
-    { path: 'nueva-obra', loadChildren: () => import('../new-book/new-book.component').then(m => m.NewBookModule) }
-  ]}
+const routes: Routes = [
+  {
+    path: '', component: LayoutComponent, children: [
+      { path: 'posts', component: PostsComponent },
+      { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.component').then(m => m.DashboardModule) },
+      { path: 'nueva-obra', loadChildren: () => import('../new-book/new-book.component').then(m => m.NewBookModule) },
+    ]
+  }
 ]
 
 @NgModule({
@@ -31,7 +35,7 @@ const routes:Routes = [
 export class LayoutRouting { }
 
 @NgModule({
-  imports: [LayoutRouting],
+  imports: [LayoutRouting, CommonModule],
   exports: [],
   declarations: [LayoutComponent]
 })

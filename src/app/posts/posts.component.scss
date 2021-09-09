@@ -1,6 +1,3 @@
-@use '../../scss/base' as Colors;
-
-
 .main_container_search {
   display: flex;
   align-items: center;
@@ -14,9 +11,9 @@
     width: 30%;
     outline: none;
     padding-left: 1em;
-    &::placeholder{
-        font-style: italic;
-        padding-left: 1em;
+    &::placeholder {
+      font-style: italic;
+      padding-left: 1em;
     }
   }
 }

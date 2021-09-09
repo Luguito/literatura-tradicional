@@ -1,0 +1,50 @@
+<section class="main_container_search">
+    <input type="text" placeholder="Titulo de la obra">
+</section>
+<section class="main_list_books">
+    <div>
+        <table>
+            <tr>
+                <th>
+                    <!-- <i class="far fa-check-circle"></i> -->
+                    <i class="far fa-circle"></i>
+                </th>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Titulo
+                </th>
+                <th>
+                    Contenido
+                </th>
+                <th>
+                    Region
+                </th>
+                <th>
+                    Departamento
+                </th>
+                <th>
+                    Municipio
+                </th>
+                <th>
+                    Tipo de obra
+                </th>
+            </tr>
+            <tr *ngFor="let blog of listBlog">
+                <td>
+                    <i class="far fa-circle"></i>
+                </td>
+                <td>
+                    {{blog._id}}
+                </td>
+                <td>
+                    {{blog.title}}
+                </td>
+                <td>
+                    {{blog.content}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>

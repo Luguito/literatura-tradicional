@@ -1,58 +1,44 @@
-<!-- <nav>
-    <div class="container_logo_nav">
-        <img src="https://literaturatradicional.co/images/logopw.jpg" alt="logo" height="100" width="100">
-    </div>
-    <div class="options_nav">
-        <a href="#" routerLink="" routerLinkActive="active">
-            Dashboard
-        </a>
-        <a href="#" routerLink="analizar-obra" routerLinkActive="active">
-            Analizar obra
-        </a>
-        <a href="#">
-            Analizar texto
-        </a>
-        <a href="#">
-            Nueva obra
-        </a>
-    </div>
-    <div class="container_user_nav">
-        <label>
-            Hola, Susanoo
-        </label>
-    </div>
-</nav> -->
 <section class="main_container_search">
     <input type="text" placeholder="Titulo de la obra">
 </section>
-<section class="main_container_filter_advance">
-    <select name="Año de recolección" class="filter_select">
-        <option value="Año recolección">Año recolección</option>
+<section class="main_container_filter_advance" *ngIf="listFilters">
+    <select class="filter_select" (change)="saveFilter('type', $event)">
+        <option value="Tipo" disabled selected value="Tipo">Tipo</option>
+        <option *ngFor="let tipo of listFilters['tipo']" [value]="tipo">{{tipo}}</option>
     </select>
-    <select name="" id="" class="filter_select">
-        <option value="Año recolección">Año recolección</option>
+    <select id="" name="Genero" class="filter_select" (change)="saveFilter('genre', $event)">
+        <option value="Genero" disabled selected>Genero</option>
+        <option *ngFor="let genero of listFilters['genero']" [value]="genero">{{genero}}</option>
     </select>
-    <select name="" id="" class="filter_select">
-        <option value="Año recolección">Año recolección</option>
+    <select class="filter_select" (change)="saveFilter('lyricProseType', $event)">
+        <option disabled selected value="Prosa Lirica">Prosa Lirica</option>
+        <option *ngFor="let prosaLirica of listFilters['prosaLirica']" [value]="prosaLirica">{{prosaLirica}}</option>
     </select>
-    <select name="" id="" class="filter_select">
-        <option value="Año recolección">Año recolección</option>
+    <select class="filter_select" (change)="saveFilter('narrativeProseType', $event)">
+        <option disabled selected value="Prosa Narrativa">Prosa Narrativa</option>
+        <option *ngFor="let prosaNarrativa of listFilters['prosaNarrativa']" [value]="prosaNarrativa">{{prosaNarrativa}}</option>
     </select>
-    <select name="" id="" class="filter_select">
-        <option value="Año recolección">Año recolección</option>
+    <select class="filter_select" (change)="saveFilter('genreType', $event)">
+        <option disabled selected value="Tipo Genero">Tipo Genero</option>
+        <option *ngFor="let tipoGenero of listFilters['tipoGenero']" [value]="tipoGenero">{{tipoGenero}}</option>
     </select>
-    <select name="" id="" class="filter_select">
-        <option value="Año recolección">Año recolección</option>
+    <select class="filter_select" (change)="saveFilter('lyricVerseType', $event)">
+        <option disabled selected value="Verso Lirica">Verso Lirica</option>
+        <option *ngFor="let versoLirica of listFilters['versoLirica']" [value]="versoLirica">{{versoLirica}}</option>
     </select>
-    <select name="" id="" class="filter_select">
-        <option value="Año recolección">Año recolección</option>
+    <select class="filter_select" (change)="saveFilter('country', $event)">
+        <option disabled selected value="Pais">Pais</option>
+        <option *ngFor="let pais of listFilters['pais']" [value]="pais">{{pais}}</option>
     </select>
-    <select name="" id="" class="filter_select">
-        <option value="Año recolección">Año recolección</option>
+    <select class="filter_select" (change)="saveFilter('city', $event)">
+        <option disabled selected value="Ciudad">Ciudad</option>
+        <option *ngFor="let ciudad of listFilters['ciudad']" [value]="ciudad">{{ciudad}}</option>
     </select>
-    <select name="" id="" class="filter_select">
-        <option value="Año recolección">Año recolección</option>
+    <select class="filter_select" (change)="saveFilter('state', $event)">
+        <option disabled selected value="Estado">Estado</option>
+        <option *ngFor="let estado of listFilters['estado']" [value]="estado">{{estado}}</option>
     </select>
+    <button (click)="filtrarObras()">Filtrar</button>
 </section>
 <section class="main_list_books">
     <div>
@@ -86,6 +72,9 @@
             </tr>
             <tr *ngFor="let blog of listBlog">
                 <td>
+                    <i class="far fa-circle"></i>
+                </td>
+                <td>
                     {{blog._id}}
                 </td>
                 <td>
@@ -97,7 +86,4 @@
             </tr>
         </table>
     </div>
-</section>
-<section>
-
 </section>
