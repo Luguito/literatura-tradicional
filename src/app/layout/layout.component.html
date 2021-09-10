@@ -2,7 +2,8 @@
     <aside class="navbar">
         <div class="user_container">
             <div class="img_user">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_d3SP2vKOeGFVESn5rk6xnPiQ0naW2e-ldA&usqp=CAU">
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_d3SP2vKOeGFVESn5rk6xnPiQ0naW2e-ldA&usqp=CAU">
                 Camilo Sanchez
             </div>
         </div>
@@ -11,7 +12,7 @@
                 <i class="fas fa-columns"></i>Dashboard
             </li>
             <li routerLink="../app/posts" routerLinkActive="active">
-                <i class="fas fa-columns"></i>Posts 
+                <i class="fas fa-columns"></i>Posts
             </li>
             <li routerLink="analizar-texto" routerLinkActive="active">
                 <i class="fas fa-book"></i>Analizar Texto
@@ -22,8 +23,11 @@
             <li routerLink="../app/nueva-obra" routerLinkActive="active">
                 <i class="fas fa-plus-circle"></i> Nueva Obra
             </li>
-            <li>
-                <i class="fas fa-plus-circle"></i> Nuevo Colaborador
+            <li (click)="openDialog(users)">
+                <mat-icon>
+                    person_add
+                </mat-icon> 
+                Nuevo Colaborador
             </li>
         </ul>
     </aside>
@@ -31,3 +35,72 @@
         <router-outlet></router-outlet>
     </div>
 </div>
+
+<ng-template #users>
+    <header class="header_users">
+        <h3>Lista de colaboradores</h3>
+        <div class="add_users" (click)="openCreateUser(createUser)">
+            <mat-icon>
+                person_add
+            </mat-icon>
+            Agregar colaborador
+        </div>
+    </header>
+    <section class="table_users">
+        <table width="100%">
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Apellido
+                </th>
+            </tr>
+            <tr *ngFor="let user of dummyData">
+                <td>
+                    {{user?.name}}
+                </td>
+                <td>
+                    {{user?.lastname}}
+                </td>
+            </tr>
+        </table>
+    </section>
+</ng-template>
+<ng-template #createUser>
+    <header>
+        <h3>
+            <mat-icon>
+                person_add
+            </mat-icon>
+            Agregar Colaborador
+        </h3>
+    </header>
+    <section class="form_users">
+        <form [formGroup]="userForm">
+            <mat-form-field appearance="fill" color="accent">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="fullname">
+            </mat-form-field>
+            <mat-form-field appearance="fill" color="accent">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+                <mat-error
+                    *ngIf="userForm.get('email').hasError('email') && !userForm.get('email').hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="userForm.get('email').hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </form>
+    </section>
+    <footer class="buttons_user">
+        <button mat-ripple class="btn_cancel">
+            Cancelar
+        </button>
+        <button mat-ripple class="btn_filter" (click)="saveUser()">
+            Guardar
+        </button>
+    </footer>
+</ng-template>

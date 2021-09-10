@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: column;
     box-shadow: 1px -2rem 5px 3px rgb(0 0 0 / 10%);
-    width: 3.5%;
+    width: 4%;
     transition: 1s;
     &:hover {
       width: 13%;
@@ -15,12 +15,12 @@
     }
     .user_container {
       height: 17%;
-      width: 12em;
+      width: 10em;
       display: flex;
       align-items: center;
       overflow-x: hidden;
       .img_user {
-        width:100%;
+        width: 100%;
         display: flex;
         align-items: center;
         color: white;
@@ -28,8 +28,8 @@
         & > img {
           padding-left: 3px;
           border-radius: 50%;
-          width: 3.5em;
-          height: 3.5em;
+          width: 3em;
+          height: 3em;
           object-fit: contain;
         }
       }
@@ -40,7 +40,7 @@
       flex-direction: column;
       gap: 2em;
       color: white;
-      font-weight: 500;
+      font-weight: 400;
       padding-left: 0;
       overflow: hidden;
       & > li {
@@ -48,8 +48,8 @@
         align-items: center;
         width: 10em;
         gap: 1.5em;
-        font-size: 1.2rem;
-        padding: 1em 0 1em 1em;
+        font-size: 1rem;
+        padding: 1em 0 1em 1.5em;
         cursor: pointer;
       }
       .active {
@@ -60,5 +60,82 @@
   .render_components {
     width: 96%;
     //test
+  }
+}
+.header_users{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .add_users{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+  }
+}
+.table_users {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+    th {
+      background-color: #fafafa;
+    }
+  }
+}
+
+section.form_users{
+  margin-top: 3em;
+  & > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    & > mat-form-field{
+      width: 70%;
+    }
+  }
+}
+
+.buttons_user{
+  display: flex;
+  justify-content: space-around;
+  .btn_filter {
+    border: none;
+    border-radius: 7px;
+    background-color: #eb5757;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    height: 2.5em;
+    width: 8em;
+    margin-top: 10px;
+    &:hover {
+      background-color: #d75050;
+      transition: 0.5s;
+    }
+  }
+  .btn_cancel {
+    border: none;
+    border-radius: 7px;
+    background-color: white;
+    font-weight: 500;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    height: 2.5em;
+    width: 8em;
+    margin-top: 10px;
+    &:hover {
+      background-color: #d75050;
+      transition: 0.5s;
+    }
   }
 }

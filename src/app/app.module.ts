@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NavBarModule } from './nav-bar/nav-bar.component';
 import { Footer } from './footer/footer.component';
 import { InterceptorBlog } from '@services';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { InterceptorBlog } from '@services';
     AppRoutingModule,
     NavBarModule,
     HttpClientModule,
+    BrowserAnimationsModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

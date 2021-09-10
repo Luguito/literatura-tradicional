@@ -12,4 +12,7 @@ export class UserService {
     inviteUser(user: IUserInvite): Observable<IUserResponse> {
         return <Observable<IUserResponse>>this.http.post(this.apiRoot + 'users/invite', user);
     }
+    listUser(){
+        return this.http.get(this.apiRoot + 'users/partners');
+    }
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {PostsComponent } from '../posts/posts.component';
+import { PostsComponent } from '../posts/posts.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,13 +9,48 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-
-  constructor() { }
+  dummyData = [
+    { name: 'Francsico', lastname: 'Gomez' },
+    { name: 'Francsico', lastname: 'Gomez' },
+    { name: 'Francsico', lastname: 'Gomez' },
+    { name: 'Francsico', lastname: 'Gomez' },
+    { name: 'Francsico', lastname: 'Gomez' },
+    { name: 'Francsico', lastname: 'Gomez' },
+    { name: 'Francsico', lastname: 'Gomez' },
+  ]
+  userForm: FormGroup = this.userGroup;
+  constructor(private dialog: MatDialog, private fb: FormBuilder,
+    private userService: UserService) { }
 
   ngOnInit(): void {
-    console.log('HOLA')
   }
 
+  openDialog(template) {
+    this.getListUsers()
+    this.dialog.open(template, {
+      width: '800px'
+    })
+  }
+
+  openCreateUser(template) {
+    this.dialog.open(template, {
+      width: '800px'
+    })
+  }
+
+  async getListUsers() {
+    this.userService.listUser().toPromise().then(v => console.log(v))
+  }
+
+  get userGroup() {
+    return this.fb.group({
+      'fullname': [],
+      'email': [, Validators.email]
+    })
+  }
+  saveUser(){
+    this.userService.inviteUser(this.userForm.getRawValue()).subscribe(console.log)
+  }
 }
 
 const routes: Routes = [
@@ -34,8 +69,17 @@ const routes: Routes = [
 })
 export class LayoutRouting { }
 
+
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core'
+import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms'
+import { UserService } from '../services';
 @NgModule({
-  imports: [LayoutRouting, CommonModule],
+  imports: [LayoutRouting, CommonModule, MatIconModule, MatInputModule,
+    MatRippleModule, ReactiveFormsModule, MatSidenavModule, MatDialogModule],
   exports: [],
   declarations: [LayoutComponent]
 })

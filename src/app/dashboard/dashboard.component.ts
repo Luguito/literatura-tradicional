@@ -2,7 +2,8 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlogService, ObraService } from '../services';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms'
+import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
@@ -11,18 +12,18 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angul
 export class DashboardComponent implements OnInit {
     Object = Object;
     listBlog: Array<any>;
+    listFiltered: Array<any>;
     listFilters: Array<any>;
     filterGroup: FormGroup = this.filtersForm;
-    constructor(private blog: BlogService, private obService: ObraService, private fb: FormBuilder) { }
+    displayedColumns = ['code', 'title', 'corpus', 'state', 'city', 'type'];
+    loadingFilter: boolean = false;
+    constructor(private obService: ObraService,
+        private mat: MatSnackBar, private fb: FormBuilder) { }
 
     ngOnInit() {
         this.obService.getFilters().toPromise().then(filters => {
             this.listFilters = filters.data;
-            console.log(this.listFilters)
         });
-        this.blog.getPost().toPromise().then(blog => {
-            this.listBlog = blog.data['docs'];
-        })
     }
 
     get filtersForm(): FormGroup {
@@ -42,18 +43,34 @@ export class DashboardComponent implements OnInit {
 
     saveFilter(type: string, { target: { value } }) {
         this.filterGroup.get(type).setValue(value);
-        console.log(this.filterGroup)
     }
 
     filtrarObras() {
+        this.loadingFilter = true;
+        this.mat.open('Filtrando Obras...', '...')
         let obj = {};
         for (let key in this.filterGroup.controls) {
             if (this.filterGroup.get(key).value !== null && this.filterGroup.get(key).value.length > 0) {
                 obj[key] = this.filterGroup.get(key).value
             }
         }
-        console.log(obj)
-        this.obService.postFilters(obj).subscribe(v => console.log(v))
+        if(Object.keys(obj).length === 0) return;
+        this.obService.postFilters(obj).toPromise().then(v => {
+            this.listBlog = v.data;
+            this.listFiltered = v.data;
+        }).then(() => {
+            this.loadingFilter = false;
+            this.mat.dismiss();
+        })
+    }
+
+    filterbySearch({ target: { value } }) {
+        if (value === '') return this.listFiltered = this.listBlog;
+
+        this.listFiltered = [...new Set([
+            ...this.listBlog.filter(obra => obra.title.toLowerCase().startsWith(value.toLowerCase())),
+            ...this.listBlog.filter(obra => obra.code.toLowerCase().startsWith(value.toLowerCase()))
+        ])]
     }
 }
 
@@ -67,9 +84,16 @@ const routes: Routes = [
 })
 export class DashboardRouting { }
 
+
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRippleModule } from '@angular/material/core';
 @NgModule({
     declarations: [DashboardComponent],
-    imports: [DashboardRouting, CommonModule, ReactiveFormsModule, FormsModule],
+    imports: [DashboardRouting, CommonModule, MatButtonModule,
+        MatRippleModule, MatProgressSpinnerModule, MatSnackBarModule, ReactiveFormsModule, FormsModule, MatTableModule],
     exports: [DashboardComponent]
 })
 export class DashboardModule { }
