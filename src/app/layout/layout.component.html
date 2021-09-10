@@ -53,15 +53,15 @@
                     Nombre
                 </th>
                 <th>
-                    Apellido
+                    Email
                 </th>
             </tr>
             <tr *ngFor="let user of dummyData">
                 <td>
-                    {{user?.name}}
+                    {{user?.fullname}}
                 </td>
                 <td>
-                    {{user?.lastname}}
+                    {{user?.email}}
                 </td>
             </tr>
         </table>
@@ -96,7 +96,7 @@
         </form>
     </section>
     <footer class="buttons_user">
-        <button mat-ripple class="btn_cancel">
+        <button mat-ripple class="btn_cancel" (click)="userDialogRef.close()">
             Cancelar
         </button>
         <button mat-ripple class="btn_filter" (click)="saveUser()">

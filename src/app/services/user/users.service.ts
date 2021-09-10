@@ -10,9 +10,9 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     inviteUser(user: IUserInvite): Observable<IUserResponse> {
-        return <Observable<IUserResponse>>this.http.post(this.apiRoot + 'users/invite', user);
+        return <Observable<IUserResponse>>this.http.post(this.apiRoot + 'user/invite', user);
     }
     listUser(){
-        return this.http.get(this.apiRoot + 'users/partners');
+        return this.http.get(this.apiRoot + 'user/partners');
     }
 }

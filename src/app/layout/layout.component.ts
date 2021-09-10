@@ -9,16 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  dummyData = [
-    { name: 'Francsico', lastname: 'Gomez' },
-    { name: 'Francsico', lastname: 'Gomez' },
-    { name: 'Francsico', lastname: 'Gomez' },
-    { name: 'Francsico', lastname: 'Gomez' },
-    { name: 'Francsico', lastname: 'Gomez' },
-    { name: 'Francsico', lastname: 'Gomez' },
-    { name: 'Francsico', lastname: 'Gomez' },
-  ]
+  dummyData;
   userForm: FormGroup = this.userGroup;
+  userDialogRef: MatDialogRef<any>;
+  usersDialogRef: MatDialogRef<any>;
   constructor(private dialog: MatDialog, private fb: FormBuilder,
     private userService: UserService) { }
 
@@ -27,19 +21,21 @@ export class LayoutComponent implements OnInit {
 
   openDialog(template) {
     this.getListUsers()
-    this.dialog.open(template, {
+    this.usersDialogRef = this.dialog.open(template, {
       width: '800px'
     })
   }
 
   openCreateUser(template) {
-    this.dialog.open(template, {
+    this.userDialogRef = this.dialog.open(template, {
       width: '800px'
     })
   }
 
   async getListUsers() {
-    this.userService.listUser().toPromise().then(v => console.log(v))
+    this.userService.listUser().toPromise().then(v => {
+      this.dummyData = v['data'];
+    })
   }
 
   get userGroup() {
@@ -49,7 +45,10 @@ export class LayoutComponent implements OnInit {
     })
   }
   saveUser(){
-    this.userService.inviteUser(this.userForm.getRawValue()).subscribe(console.log)
+    this.userService.inviteUser(this.userForm.getRawValue()).subscribe(v => {
+      this.userDialogRef.close();
+      this.getListUsers();
+    })
   }
 }
 
@@ -71,7 +70,7 @@ export class LayoutRouting { }
 
 
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core'
