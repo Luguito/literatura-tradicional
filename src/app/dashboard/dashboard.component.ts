@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     filterGroup: FormGroup = this.filtersForm;
     displayedColumns = ['code', 'title', 'corpus', 'state', 'city', 'type'];
     loadingFilter: boolean = false;
+    obrasSeletec: Array<any> = [];
     constructor(private obService: ObraService,
         private mat: MatSnackBar, private fb: FormBuilder) { }
 
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit {
                 obj[key] = this.filterGroup.get(key).value
             }
         }
-        if(Object.keys(obj).length === 0) return;
+        if (Object.keys(obj).length === 0) return;
         this.obService.postFilters(obj).toPromise().then(v => {
             this.listBlog = v.data;
             this.listFiltered = v.data;
@@ -71,6 +72,31 @@ export class DashboardComponent implements OnInit {
             ...this.listBlog.filter(obra => obra.title.toLowerCase().startsWith(value.toLowerCase())),
             ...this.listBlog.filter(obra => obra.code.toLowerCase().startsWith(value.toLowerCase()))
         ])]
+    }
+
+    selectOnePiece(piece) {
+        let { exist, index } = this.existPieceInArray(piece);
+
+        piece.select = !exist;
+
+        !exist ? this.obrasSeletec.push(piece) : this.obrasSeletec.splice(index, 1);
+    }
+
+    selectAllPieces() {
+        this.mat.open('Seleccionando obras...', '...')
+        let exist = this.listFiltered.length === this.obrasSeletec.length;
+
+        this.listFiltered.map(piece => {
+            piece.select = !exist;
+        });
+
+        !exist ? this.obrasSeletec.push(...this.listFiltered) : this.obrasSeletec = [];
+
+        setTimeout(() => { this.mat.dismiss(); }, 2000)
+    }
+
+    existPieceInArray(piece) {
+        return { index: this.obrasSeletec.indexOf(piece), exist: this.obrasSeletec.indexOf(piece) !== -1 }
     }
 }
 
@@ -90,9 +116,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
     declarations: [DashboardComponent],
-    imports: [DashboardRouting, CommonModule, MatButtonModule,
+    imports: [DashboardRouting, CommonModule, MatButtonModule, MatIconModule,
         MatRippleModule, MatProgressSpinnerModule, MatSnackBarModule, ReactiveFormsModule, FormsModule, MatTableModule],
     exports: [DashboardComponent]
 })

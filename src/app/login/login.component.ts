@@ -9,13 +9,16 @@ import { LoginService } from '@services'
 })
 export class LoginComponent {
     logInForm: FormGroup = this.initForm;
-    constructor(private LS:LoginService, private fb: FormBuilder, private router:Router) { }
+    loadingLogin:boolean = false;
+    constructor(private LS: LoginService, private fb: FormBuilder, private router: Router) { }
 
     sendLogIn() {
+        this.loadingLogin = true;
         let user = this.logInForm.getRawValue();
-        this.LS.userLogin(user).subscribe((data:any) => {
+        this.LS.userLogin(user).subscribe((data: any) => {
             sessionStorage.setItem("token", data.token)
-            this.router.navigate(['/app/dashboard'])
+            this.loadingLogin = false;
+            this.router.navigate(['/app/dashboard']);
         });
     }
 
@@ -27,14 +30,16 @@ export class LoginComponent {
     }
 }
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { CommonModule } from "@angular/common";
 @NgModule({
     declarations: [LoginComponent],
     imports: [ReactiveFormsModule, RouterModule.forChild([
-        {path: '', component: LoginComponent}
-    ])],
+        { path: '', component: LoginComponent }
+    ]), MatProgressSpinnerModule, CommonModule],
     exports: [LoginComponent]
 })
-export class LoginModule {}
+export class LoginModule { }
 
 interface IUser {
     username: string

@@ -19,7 +19,10 @@
             </div>
             <a href="#" class="redirect_forgot">¿Olvidaste la contraseña?</a>
             <div class="options_login">
-                <button (click)="sendLogIn()">Entrar</button>
+                <button (click)="sendLogIn()">
+                    <mat-spinner diameter='20' *ngIf="loadingLogin"></mat-spinner>
+                    Entrar
+                </button>
             </div>
         </div>
     </div>

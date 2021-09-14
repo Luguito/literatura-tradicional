@@ -10,20 +10,23 @@
         <option value="Genero" disabled selected>Genero</option>
         <option *ngFor="let genero of listFilters['genero']" [value]="genero">{{genero}}</option>
     </select>
-    <select class="filter_select" (change)="saveFilter('lyricProseType', $event)">
-        <option disabled selected value="Prosa Lirica">Prosa Lirica</option>
-        <option *ngFor="let prosaLirica of listFilters['prosaLirica']" [value]="prosaLirica">{{prosaLirica}}</option>
-    </select>
-    <select class="filter_select" (change)="saveFilter('narrativeProseType', $event)">
-        <option disabled selected value="Prosa Narrativa">Prosa Narrativa</option>
-        <option *ngFor="let prosaNarrativa of listFilters['prosaNarrativa']" [value]="prosaNarrativa">{{prosaNarrativa}}
-        </option>
-    </select>
     <select class="filter_select" (change)="saveFilter('genreType', $event)">
         <option disabled selected value="Tipo Genero">Tipo Genero</option>
         <option *ngFor="let tipoGenero of listFilters['tipoGenero']" [value]="tipoGenero">{{tipoGenero}}</option>
     </select>
-    <select class="filter_select" (change)="saveFilter('lyricVerseType', $event)">
+    <select class="filter_select" (change)="saveFilter('lyricProseType', $event)"
+        [disabled]="this.filterGroup.get('genre').value === 'Narrativa' || this.filterGroup.get('genreType').value === 'Verso'">
+        <option disabled selected value="Prosa Lirica">Prosa Lirica</option>
+        <option *ngFor="let prosaLirica of listFilters['prosaLirica']" [value]="prosaLirica">{{prosaLirica}}</option>
+    </select>
+    <select class="filter_select" (change)="saveFilter('narrativeProseType', $event)"
+        [disabled]="this.filterGroup.get('genre').value === 'Lírica' || this.filterGroup.get('genreType').value === 'Verso'">
+        <option disabled selected value="Prosa Narrativa">Prosa Narrativa</option>
+        <option *ngFor="let prosaNarrativa of listFilters['prosaNarrativa']" [value]="prosaNarrativa">{{prosaNarrativa}}
+        </option>
+    </select>
+    <select class="filter_select" (change)="saveFilter('lyricVerseType', $event)"
+        [disabled]="this.filterGroup.get('genreType').value === 'Prosa'">
         <option disabled selected value="Verso Lirica">Verso Lirica</option>
         <option *ngFor="let versoLirica of listFilters['versoLirica']" [value]="versoLirica">{{versoLirica}}</option>
     </select>
@@ -31,13 +34,13 @@
         <option disabled selected value="Pais">Pais</option>
         <option *ngFor="let pais of listFilters['pais']" [value]="pais">{{pais}}</option>
     </select>
-    <select class="filter_select" (change)="saveFilter('city', $event)">
+    <select class="filter_select" (change)="saveFilter('state', $event)" [disabled]="this.filterGroup.get('country').value !== 'Colombia'">
+        <option disabled selected value="Estado">Estado/Departamento</option>
+        <option *ngFor="let estado of listFilters['estado']" [value]="estado">{{estado}}</option>
+    </select>
+    <select class="filter_select" (change)="saveFilter('city', $event)" [disabled]="!this.filterGroup.get('state').value">
         <option disabled selected value="Ciudad">Ciudad</option>
         <option *ngFor="let ciudad of listFilters['ciudad']" [value]="ciudad">{{ciudad}}</option>
-    </select>
-    <select class="filter_select" (change)="saveFilter('state', $event)">
-        <option disabled selected value="Estado">Estado</option>
-        <option *ngFor="let estado of listFilters['estado']" [value]="estado">{{estado}}</option>
     </select>
     <button mat-ripple class="btn_filter" (click)="filtrarObras()">
         <mat-spinner diameter='20' *ngIf="loadingFilter"></mat-spinner>
@@ -49,7 +52,7 @@
     <div>
         <table>
             <tr>
-                <th>
+                <th (click)="selectAllPieces()">
                     <i class="far fa-circle"></i>
                 </th>
                 <th>
@@ -72,8 +75,9 @@
                 </th>
             </tr>
             <tr *ngFor="let blog of listFiltered">
-                <td>
-                    <i class="far fa-circle"></i>
+                <td (click)="selectOnePiece(blog)">
+                    <i class="far fa-check-circle" *ngIf="blog?.select" style="color: green;"></i>
+                    <i class="far fa-circle" *ngIf="!blog?.select"></i>
                 </td>
                 <td>
                     {{blog?.code}}
