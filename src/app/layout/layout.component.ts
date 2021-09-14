@@ -13,6 +13,7 @@ export class LayoutComponent implements OnInit {
   userForm: FormGroup = this.userGroup;
   userDialogRef: MatDialogRef<any>;
   usersDialogRef: MatDialogRef<any>;
+  user: string = localStorage.user ?? 'Camilo Sanchez'
   constructor(private dialog: MatDialog, private fb: FormBuilder,
     private userService: UserService) { }
 
