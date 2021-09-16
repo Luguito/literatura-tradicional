@@ -15,4 +15,8 @@ export class ObraService {
     postFilters(body): Observable<any> {
         return <Observable<any>>this.http.post(this.apiRoot + 'works/filter', body)
     }
+
+    getDetail(_id:string):Observable<any> {
+        return <Observable<any>>this.http.get(this.apiRoot + 'works/' + _id);
+    }
 }

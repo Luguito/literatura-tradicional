@@ -1,5 +1,5 @@
 import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, Router } from '@angular/router';
 import { PostsComponent } from '../posts/posts.component';
 import { CommonModule } from '@angular/common';
 
@@ -13,8 +13,9 @@ export class LayoutComponent implements OnInit {
   userForm: FormGroup = this.userGroup;
   userDialogRef: MatDialogRef<any>;
   usersDialogRef: MatDialogRef<any>;
-  user: string = localStorage.user ?? 'Camilo Sanchez'
-  constructor(private dialog: MatDialog, private fb: FormBuilder,
+  user: string = localStorage.user ?? 'Camilo Sanchez';
+  panelOpenState: boolean = false;
+  constructor(private dialog: MatDialog, private fb: FormBuilder, private router: Router,
     private userService: UserService) { }
 
   ngOnInit(): void {
@@ -45,11 +46,16 @@ export class LayoutComponent implements OnInit {
       'email': [, Validators.email]
     })
   }
-  saveUser(){
+  saveUser() {
     this.userService.inviteUser(this.userForm.getRawValue()).subscribe(v => {
       this.userDialogRef.close();
       this.getListUsers();
     })
+  }
+
+  logOut(){
+    sessionStorage.clear();
+    this.router.navigate(['/'])
   }
 }
 
@@ -59,6 +65,7 @@ const routes: Routes = [
       { path: 'posts', component: PostsComponent },
       { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.component').then(m => m.DashboardModule) },
       { path: 'nueva-obra', loadChildren: () => import('../new-book/new-book.component').then(m => m.NewBookModule) },
+      { path: 'nuevo-post', loadChildren: () => import('../new-post/new-post.component').then(m => m.NewPostModule) }
     ]
   }
 ]
@@ -77,8 +84,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core'
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms'
 import { UserService } from '../services';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 @NgModule({
-  imports: [LayoutRouting, CommonModule, MatIconModule, MatInputModule,
+  imports: [LayoutRouting, CommonModule, MatIconModule, MatInputModule, MatExpansionModule,
     MatRippleModule, ReactiveFormsModule, MatSidenavModule, MatDialogModule],
   exports: [],
   declarations: [LayoutComponent]

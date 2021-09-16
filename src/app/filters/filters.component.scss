@@ -1,0 +1,64 @@
+.main_container_filter {
+    display: flex;
+    margin-top: 1em;
+    .filters_type {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      margin: 0 4em;
+      .first_row {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 10em;
+      }
+      .second_row {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 10em;
+      }
+    }
+    .country_filters {
+      display: flex;
+      flex-wrap: wrap;
+      width: 40%;
+      padding-left: 2em;
+      justify-content: center;
+      gap: 2em;
+    }
+    .filter_select {
+      border: 1.5px solid #eb5757;
+      border-radius: 5px;
+      height: 2.6em;
+      width: 25%;
+      margin-top: 1em;
+      color: #eb5757;
+      outline: none;
+      &:disabled {
+        cursor: not-allowed;
+        color: #d2bebe;
+        border: 1.5px solid #d2bebe;
+        opacity: 0.4;
+      }
+    }
+    .btn_filter {
+      border: none;
+      border-radius: 7px;
+      background-color: #eb5757;
+      font-weight: 500;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      height: 2.5em;
+      width: 13em;
+      margin-top: 10px;
+      &:hover {
+        background-color: #d75050;
+        transition: 0.5s;
+      }
+    }
+  }

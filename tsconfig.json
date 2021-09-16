@@ -7,6 +7,7 @@
 {
   "files": [],
   "compilerOptions": {
+    "experimentalDecorators": true,
     "baseUrl": "src",
     "paths": {
       "@services": ["app/services"]

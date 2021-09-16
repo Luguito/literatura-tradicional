@@ -19,42 +19,7 @@
     }
   }
 }
-.main_container_filter_advance {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-wrap: wrap;
-  height: 6em;
-  margin: 2em 2em;
-  .filter_select {
-    border: 1.5px solid #eb5757;
-    border-radius: 5px;
-    height: 2.6em;
-    width: 13%;
-    margin-top: 1em;
-    color: #eb5757;
-    outline: none;
-  }
-  .btn_filter {
-    border: none;
-    border-radius: 7px;
-    background-color: #eb5757;
-    font-weight: 500;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    height: 2.5em;
-    width: 13em;
-    margin-top: 10px;
-    &:hover {
-      background-color: #d75050;
-      transition: 0.5s;
-    }
-  }
-}
+
 .main_list_books {
   height: 69%;
   overflow-y: scroll;

@@ -8,26 +8,42 @@
             </div>
         </div>
         <ul>
-            <li routerLink="../app/dashboard" routerLinkActive="active">
-                <i class="fas fa-columns"></i>Dashboard
-            </li>
-            <li routerLink="../app/posts" routerLinkActive="active">
-                <i class="fas fa-columns"></i>Posts
-            </li>
-            <li routerLink="analizar-texto" routerLinkActive="active">
-                <i class="fas fa-book"></i>Analizar Texto
-            </li>
-            <li routerLink="analizar-obra" routerLinkActive="active">
-                <i class="fas fa-align-right"></i>Analizar Obra
-            </li>
-            <li routerLink="../app/nueva-obra" routerLinkActive="active">
-                <i class="fas fa-plus-circle"></i> Nueva Obra
-            </li>
-            <li (click)="openDialog(users)">
-                <mat-icon>
-                    person_add
-                </mat-icon> 
-                Nuevo Colaborador
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="fas fa-columns"></i>Dashboard
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p routerLink="../app/dashboard" routerLinkActive="active">Obras</p>
+                    <p routerLink="../app/posts" routerLinkActive="active">Post</p>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion>
+                <mat-expansion-panel id="test">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="fas fa-book"></i>Analisis
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Analizar Texto</p>
+                    <p>Analizar Obra</p>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion>
+                <mat-expansion-panel id="test">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="fas fa-plus-circle"></i> Nuevo
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p routerLink="../app/nueva-obra">Nueva Obra</p>
+                    <p routerLink="../app/nuevo-post">Nuevo Post</p>
+                    <p (click)="openDialog(users)">Nuevo colaborador</p>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <li (click)="logOut()">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
             </li>
         </ul>
     </aside>

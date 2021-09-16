@@ -5,9 +5,7 @@
     </header>
     <main class="body_new_book">
         <div class="container_types_book">
-            <select name="" id="" *ngFor="let x of [1,2,3,4,5,6,7,8]" class="type">
-                <option value="">Tipo de obra</option>
-            </select>
+            <app-filters></app-filters>
         </div>
         <form class="body_form">
             <div class="data_book">
@@ -25,7 +23,7 @@
                 </div>
             </div>
             <div class="content_book">
-                <textarea rows="15"></textarea>
+                <div id="editor2"></div>
             </div>
             <div class="footer_book">
                 <input type="text" placeholder="Informate">
@@ -39,7 +37,10 @@
                 <select name="" id="">
                     <option value="">Ciudad/Municipio</option>
                 </select>
-                <button class="save_btn">Guardar</button>
+                <button class="save_btn" (click)="savePiece()">
+                    <mat-spinner diameter='20' *ngIf="showLoading"></mat-spinner>
+                    Guardar
+                </button>
             </div>
         </form>
     </main>

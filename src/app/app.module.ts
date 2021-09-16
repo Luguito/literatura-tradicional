@@ -5,14 +5,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarModule } from './nav-bar/nav-bar.component';
-import { Footer } from './footer/footer.component';
 import { InterceptorBlog } from '@services';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    Footer,
+    AppComponent
   ],
   imports: [
     BrowserModule,
