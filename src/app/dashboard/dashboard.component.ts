@@ -55,11 +55,13 @@ export class DashboardComponent implements OnInit {
         piece.select = !exist;
 
         !exist ? this.obrasSeletec.push(piece) : this.obrasSeletec.splice(index, 1);
+
+        this.obService.researchPiece$.next(this.obrasSeletec);
     }
 
     selectAllPieces() {
         let exist = this.listFiltered.length === this.obrasSeletec.length;
-        
+
         this.mat.open(`${exist ? 'Deseleccionando' : 'Seleccionando'} Obras...`)
 
         this.listFiltered.map(piece => {
@@ -69,6 +71,7 @@ export class DashboardComponent implements OnInit {
         !exist ? this.obrasSeletec.push(...this.listFiltered) : this.obrasSeletec = [];
         this.checkAll = !exist;
 
+        this.obService.researchPiece$.next(this.obrasSeletec);
         setTimeout(() => { this.mat.dismiss(); }, 2000)
     }
 
@@ -77,8 +80,8 @@ export class DashboardComponent implements OnInit {
     }
 
     openDetails(piece) {
-        console.log(piece);
         this.dialog.open(this.details, {
+            height: '800px',
             data: piece
         });
     }
@@ -108,7 +111,7 @@ import { NewBookModule } from '../new-book/new-book.component';
 @NgModule({
     declarations: [DashboardComponent],
     imports: [DashboardRouting, CommonModule, MatButtonModule, MatIconModule, MatDividerModule, MatDialogModule, FiltersModule,
-    NewBookModule, MatRippleModule, MatProgressSpinnerModule, MatSnackBarModule, ReactiveFormsModule, FormsModule, MatTableModule],
+        NewBookModule, MatRippleModule, MatProgressSpinnerModule, MatSnackBarModule, ReactiveFormsModule, FormsModule, MatTableModule],
     exports: [DashboardComponent]
 })
 export class DashboardModule { }

@@ -46,6 +46,13 @@ export class LayoutComponent implements OnInit {
       'email': [, Validators.email]
     })
   }
+
+  deleteUser(id) {
+    this.userService.deleteUser(id).toPromise().then(() => {
+      this.getListUsers();
+    })
+  }
+
   saveUser() {
     this.userService.inviteUser(this.userForm.getRawValue()).subscribe(v => {
       this.userDialogRef.close();
@@ -53,7 +60,7 @@ export class LayoutComponent implements OnInit {
     })
   }
 
-  logOut(){
+  logOut() {
     sessionStorage.clear();
     this.router.navigate(['/'])
   }
@@ -65,7 +72,8 @@ const routes: Routes = [
       { path: 'posts', component: PostsComponent },
       { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.component').then(m => m.DashboardModule) },
       { path: 'nueva-obra', loadChildren: () => import('../new-book/new-book.component').then(m => m.NewBookModule) },
-      { path: 'nuevo-post', loadChildren: () => import('../new-post/new-post.component').then(m => m.NewPostModule) }
+      { path: 'nuevo-post', loadChildren: () => import('../new-post/new-post.component').then(m => m.NewPostModule) },
+      { path: 'analisis-obra/:type', loadChildren: () => import('../results/results.component').then(m => m.ResultsModule) }
     ]
   }
 ]

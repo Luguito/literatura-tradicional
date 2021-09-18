@@ -1,42 +1,64 @@
 <section class="new_book_container">
     <header class="title_new_book">
-        <h1 class="title">Agregar nueva obra</h1>
+        <h1 class="title">{{title}} nueva obra</h1>
         <h4 class="subtitle">Completar todos los campos</h4>
     </header>
     <main class="body_new_book">
         <div class="container_types_book">
-            <app-filters></app-filters>
+            <app-filters (filtersApplied)="settingTypePiece($event)" [edit]="piece"></app-filters>
         </div>
-        <form class="body_form">
-            <div class="data_book">
-                <div class="first_row">
-                    <input type="text" placeholder="Titulo">
-                    <input type="text" placeholder="Author">
-                    <input type="text" placeholder="Editorial">
-                    <input type="text" placeholder="Volumen/Editorial">
+        <form class="body_form" [formGroup]="pieceForm">
+            <div class="data_book" formGroupName="source">
+                <div class="type_book">
+                    <select class="filter_select" formControlName="type">
+                        <option selected disabled>Fuente de publicación</option>
+                        <option value="Audio">Audio</option>
+                        <option value="Video">Video</option>
+                        <option value="Texto">Texto</option>
+                    </select>
                 </div>
-                <div class="last_row">
-                    <input type="text" placeholder="Año">
-                    <input type="text" placeholder="Fuente de publicacion">
-                    <input type="text" placeholder="Link">
-                    <input type="text" placeholder="Tipo de publicación texto">
+                <div class="select_group" formGroupName="isText" *ngIf="pieceForm.get('source.type').value === 'Texto'">
+                    <div class="first_row">
+                        <input type="text" placeholder="Titulo" formControlName="title">
+                        <input type="text" placeholder="Author" formControlName="author">
+                        <input type="text" placeholder="Editorial" formControlName="editorial">
+                        <input type="text" placeholder="Volumen/Editorial" formControlName="volume">
+                    </div>
+                    <div class="last_row">
+                        <input type="text" placeholder="Año" formControlName="year">
+                        <input type="text" placeholder="Fuente de publicacion" formControlName="editorial">
+                        <input type="text" placeholder="Referencia" formControlName="reference">
+                    </div>
+                </div>
+                <div class="select_group" formGroupName="isDigital" *ngIf="pieceForm.get('source.type').value !== 'Texto'">
+                    <div class="first_row">
+                        <input type="text" placeholder="Titulo" formControlName="title">
+                        <input type="text" placeholder="Author" formControlName="author">
+                    </div>
+                    <div class="last_row">
+                        <input type="text" placeholder="Año" formControlName="year">
+                        <input type="text" placeholder="Fuente de publicacion" formControlName="publicationPlace">
+                        <input type="text" placeholder="Link" formControlName="link">
+                    </div>
                 </div>
             </div>
             <div class="content_book">
                 <div id="editor2"></div>
             </div>
-            <div class="footer_book">
-                <input type="text" placeholder="Informate">
-                <input type="text" placeholder="Estado">
-                <select name="" id="">
-                    <option value="">Pais</option>
-                </select>
-                <select name="" id="">
-                    <option value="">Estado/Provincia</option>
-                </select>
-                <select name="" id="">
-                    <option value="">Ciudad/Municipio</option>
-                </select>
+            <div class="footer_book" formGroupName="informant">
+                <input type="text" placeholder="Informate" formControlName="name">
+                <input type="number" placeholder="Edad" formControlName="age">
+                <div formGroupName="location" class="select_group">
+                    <select formControlName="country">
+                        <option value="Colombia">Colombia</option>
+                    </select>
+                    <select formControlName="state">
+                        <option value="Atlantico">Atlantico</option>
+                    </select>
+                    <select formControlName="city">
+                        <option value="Barranquilla">Barranquilla</option>
+                    </select>
+                </div>
                 <button class="save_btn" (click)="savePiece()">
                     <mat-spinner diameter='20' *ngIf="showLoading"></mat-spinner>
                     Guardar

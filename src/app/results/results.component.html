@@ -1,0 +1,26 @@
+<section class="results_container">
+    <header class="results_header">
+        <h2>{{title}}</h2>
+        <div class="results">
+            <span class="pill" *ngFor="let result of listResults">
+                {{result?.item}}  ({{result?.frequency}})
+            </span>
+        </div>
+    </header>
+    <div class='scrolleable'>
+        <table class="pieces_results">
+            <div class="head_table">
+                <tr>
+                    <th>Codigo</th>
+                    <th>Contenido</th>
+                </tr>
+            </div>
+            <div class="body_table">
+                <tr *ngFor="let piece of listPieces">
+                    <td>{{piece?.code}}</td>
+                    <td>{{piece?.corpus}}</td>
+                </tr>
+            </div>
+        </table>
+    </div>
+</section>

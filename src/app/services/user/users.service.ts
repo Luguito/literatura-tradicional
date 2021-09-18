@@ -15,4 +15,7 @@ export class UserService {
     listUser(){
         return this.http.get(this.apiRoot + 'user/partners');
     }
+    deleteUser(user_id:string){
+        return this.http.delete(this.apiRoot + 'user/partner/' + user_id);
+    }
 }

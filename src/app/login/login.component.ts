@@ -9,16 +9,15 @@ import { LoginService } from '@services'
 })
 export class LoginComponent {
     logInForm: FormGroup = this.initForm;
-    loadingLogin:boolean = false;
+    loadingLogin: boolean = false;
     constructor(private LS: LoginService, private fb: FormBuilder, private router: Router) { }
 
     sendLogIn() {
         this.loadingLogin = true;
         let user = this.logInForm.getRawValue();
-        this.LS.userLogin(user).subscribe((data: any) => {
-            console.log(data)
-            sessionStorage.setItem("token", data.token)
-            localStorage.setItem('user', data.user.fullname);
+        this.LS.userLogin(user).subscribe((data:any) => {
+            sessionStorage.setItem("token", data.data.access_token)
+            localStorage.setItem('user', data.data.username);
             this.loadingLogin = false;
             this.router.navigate(['/app/dashboard']);
         });

@@ -11,6 +11,10 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 3em;
+    div:first-child{
+      display: flex;
+      gap: 2em;
+    }
     div:last-child {
       display: flex;
       gap: 3em;
@@ -25,7 +29,10 @@
   }
   footer {
     display: flex;
-    justify-content: flex-end;
+    gap: 2em;
+    .list_tags{
+      width: 90%;
+    }
     .btn_filter {
       border: none;
       border-radius: 7px;
@@ -45,5 +52,20 @@
         transition: 0.5s;
       }
     }
+  }
+}
+
+.btn_filter {
+  border: none;
+  border-radius: 7px;
+  background-color: #eb5757;
+  font-weight: 500;
+  color: white;
+  height: 2.5em;
+  width: 7em;
+  margin-top: 10px;
+  &:hover {
+    background-color: #d75050;
+    transition: 0.5s;
   }
 }

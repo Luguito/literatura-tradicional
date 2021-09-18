@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class FiltersComponent implements OnInit {
   @Input() showButton: boolean;
   @Input('loading') showLoading: boolean;
+  @Input('edit') filtersEdit;
   @Output() filtersApplied: EventEmitter<Object> = new EventEmitter();
   filterGroup: FormGroup = this.filtersForm;
   listFilters: any;
@@ -17,31 +18,46 @@ export class FiltersComponent implements OnInit {
 
   ngOnInit(): void {
     this.obService.getFilters().toPromise().then(filters => {
+      console.log(filters)
       this.listFilters = filters.data;
     });
 
+    this.filtersEdit && this.setEditFilter();
+
     this.filterGroup.get('state').valueChanges.subscribe(city => {
       this.citys = this.listFilters['ciudades'].find(({ state }) => state == city).cities
-    })
+    });
+
+    !this.showButton && this.filterGroup.get('city').valueChanges.subscribe(city => {
+      this.filtersApplied.next(this.filterGroup.getRawValue());
+    });
   }
 
   get filtersForm(): FormGroup {
     return this.fb.group({
-      'type': [''],
-      'genre': [''],
-      'genreType': [],
-      'narrativeProseType': [],
-      'lyricProseType': [],
-      'lyricVerseType': [],
-      'country': [],
-      'state': [],
-      'city': [],
-      'title': [],
+      'type': [null],
+      'genre': [null],
+      'genreType': [null],
+      'narrativeProseType': [null],
+      'lyricProseType': [null],
+      'lyricVerseType': [null],
+      'country': [null],
+      'state': [null],
+      'city': [null],
+      'title': [null],
     });
   }
 
   saveFilter(type: string, { target: { value } }) {
     this.filterGroup.get(type).setValue(value);
+  }
+
+  setEditFilter(){
+    this.filterGroup.patchValue(this.filtersEdit);
+    this.filterGroup.get('country').reset(this.filtersEdit.country);
+    this.filterGroup.get('state').setValue(this.filtersEdit.state);
+    this.filterGroup.get('city').setValue(this.filtersEdit.city);
+    console.log(this.filterGroup)
   }
 
   sendFilters() {
@@ -61,8 +77,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { ObraService } from '../services';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms'
 @NgModule({
-  imports: [MatProgressSpinnerModule, MatDividerModule, CommonModule],
+  imports: [MatProgressSpinnerModule, ReactiveFormsModule, MatDividerModule, CommonModule],
   exports: [FiltersComponent],
   declarations: [FiltersComponent]
 })

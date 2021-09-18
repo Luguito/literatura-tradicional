@@ -9,10 +9,10 @@ export class InterceptorBlog implements HttpInterceptor {
     constructor() { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token: string = sessionStorage.getItem('token');
-
         let request = req;
-
+        console.log(req)
         if (token) {
+
             request = req.clone({
                 setHeaders: {
                     authorization: `Bearer ${token}`

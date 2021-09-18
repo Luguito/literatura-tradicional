@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators'
     providedIn: 'root'
 })
 export class LoginService {
-    private apiRoot: string = "https://uptc-dev.herokuapp.com/api/";
+    private apiRoot: string = "https://uptc-dev.herokuapp.com/api/auth/";
     constructor(private http: HttpClient) { }
 
     userLogin(user) {
