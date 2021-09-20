@@ -1,6 +1,6 @@
 <section class="new_book_container">
     <header class="title_new_book">
-        <h1 class="title">{{title}} nueva obra</h1>
+        <h1 class="title">{{title}} nueva obra <small>{{piece ? ' - '+ piece?.code : null}}</small> </h1>
         <h4 class="subtitle">Completar todos los campos</h4>
     </header>
     <main class="body_new_book">
@@ -43,6 +43,9 @@
                 </div>
             </div>
             <div class="content_book">
+                <span style="margin-bottom: 1em;">
+                    <b>Corpus</b>
+                </span>
                 <div id="editor2"></div>
             </div>
             <div class="footer_book" formGroupName="informant">

@@ -31,10 +31,22 @@
                             <mat-expansion-panel-header>
                                 <mat-panel-title>Analizar Obra</mat-panel-title>
                             </mat-expansion-panel-header>
-                            <p routerLink="../app/analisis-obra/count-words">Contar Palabras</p>
+                            <p (click)="goToSearch('', 'getCountWords', 'contar-palabras')">Contar Palabras</p>
+                            <p (click)="openModal(count_frase, 'getCountPhrase', 'contar-frases')">Contar Frases</p>
+                            <p (click)="openModal(frase, 'getWordMonit', 'monitoreo-de-palabras')">Monitoreo de
+                                Palabras</p>
+                            <p (click)="openModal(count_frase, 'getSameSentence', 'oraciones-con-el-mismo-inicio')">
+                                Oraciones con el mismo
+                                inicio</p>
+                            <p (click)="openModal(count_frase, 'getSameBeginning','parrafos-con-el-mismo-inicio')">
+                                Parrafos con el mismo
+                                inicio</p>
+                            <p routerLink="../app/analisis-obra/nombres-propios">Nombres Propios</p>
+                            <p routerLink="../app/analisis-obra/porcentajes-de-coincidencias">Porcentajes de
+                                coincidencias</p>
                         </mat-expansion-panel>
                     </mat-accordion>
-                    <p>Analizar Obra</p>
+                    <p>Analizar Texto</p>
                 </mat-expansion-panel>
             </mat-accordion>
             <mat-accordion>
@@ -131,5 +143,35 @@
         <button mat-ripple class="btn_filter" (click)="saveUser()">
             Guardar
         </button>
+    </footer>
+</ng-template>
+<ng-template #count_frase let-data>
+    <header style="margin-bottom: 1em;">
+        <h4>Agrega el numero de palabras/frases</h4>
+    </header>
+    <section style="display: flex;align-items: center;justify-content: center;">
+        <mat-form-field>
+            <mat-label>Numero</mat-label>
+            <input matInput #count>
+        </mat-form-field>
+    </section>
+    <footer style="display: flex;align-items: center;justify-content: center; gap: 2em;">
+        <button mat-button>Cancelar</button>
+        <button mat-button color="accent" (click)="goToSearch(count, data.method, data.link)">Buscar</button>
+    </footer>
+</ng-template>
+<ng-template #frase let-data>
+    <header style="margin-bottom: 1em;">
+        <h4>Agrega la Frase/Oracion</h4>
+    </header>
+    <section style="display: flex;align-items: center;justify-content: center;">
+        <mat-form-field>
+            <mat-label>Frase</mat-label>
+            <input matInput #phrase>
+        </mat-form-field>
+    </section>
+    <footer style="display: flex;align-items: center;justify-content: center; gap: 2em;">
+        <button mat-button>Cancelar</button>
+        <button mat-button color="accent" (click)="goToSearch(phrase, data.method, data.link)">Buscar</button>
     </footer>
 </ng-template>

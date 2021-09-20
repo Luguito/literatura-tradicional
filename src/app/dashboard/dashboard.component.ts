@@ -22,9 +22,13 @@ export class DashboardComponent implements OnInit {
     checkAll: boolean = false;
     @ViewChild('details', { static: true }) details: TemplateRef<any>;
     constructor(private obService: ObraService, private dialog: MatDialog,
-        private mat: MatSnackBar, private fb: FormBuilder) { }
+        private storage: StorageService, private mat: MatSnackBar, private fb: FormBuilder) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.storage.getPieces().subscribe(v => {
+            this.listFiltered = v;
+        })
+     }
 
     filtrarObras(obj) {
         this.loadingFilter = true;
@@ -34,6 +38,7 @@ export class DashboardComponent implements OnInit {
         this.obService.postFilters(obj).toPromise().then(v => {
             this.listBlog = v.data;
             this.listFiltered = v.data;
+            this.storage.emittedPieces(v.data);
         }).then(() => {
             this.loadingFilter = false;
             this.mat.dismiss();
@@ -56,7 +61,7 @@ export class DashboardComponent implements OnInit {
 
         !exist ? this.obrasSeletec.push(piece) : this.obrasSeletec.splice(index, 1);
 
-        this.obService.researchPiece$.next(this.obrasSeletec);
+        this.storage.sendPieces({ pieces: this.obrasSeletec });
     }
 
     selectAllPieces() {
@@ -71,7 +76,7 @@ export class DashboardComponent implements OnInit {
         !exist ? this.obrasSeletec.push(...this.listFiltered) : this.obrasSeletec = [];
         this.checkAll = !exist;
 
-        this.obService.researchPiece$.next(this.obrasSeletec);
+        this.storage.sendPieces({ pieces: this.obrasSeletec });
         setTimeout(() => { this.mat.dismiss(); }, 2000)
     }
 
@@ -108,6 +113,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { FiltersModule } from '../filters/filters.component';
 import { NewBookModule } from '../new-book/new-book.component';
+import { StorageService } from '../storage.service';
 @NgModule({
     declarations: [DashboardComponent],
     imports: [DashboardRouting, CommonModule, MatButtonModule, MatIconModule, MatDividerModule, MatDialogModule, FiltersModule,

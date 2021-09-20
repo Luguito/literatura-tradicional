@@ -19,6 +19,7 @@ export class NewBookComponent implements OnInit {
   constructor(private fb: FormBuilder, private blog:ObraService) { }
 
   ngOnInit(): void {
+    this.title = this.piece ? 'Editar' : 'Agregar';
     this.initEdit();
     this.piece && this.editMode();
   }
@@ -113,7 +114,6 @@ export class NewBookComponent implements OnInit {
   }
 
   editMode(){
-    this.title = this.piece ? 'Editar' : 'Agregar';
     this.piece && this.pieceForm.patchValue(this.piece);
     this.editor.setText(this.piece['corpus']);
 

@@ -1,11 +1,13 @@
 section.results_container {
   header.results_header {
     padding: 3em;
+    padding-top: 0.5em;
     .results {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 1em;
-      height: 6em;
+      height: 10em;
       padding: 1em;
       overflow: scroll;
       border: 1px solid #a84242;
@@ -20,7 +22,7 @@ section.results_container {
     }
   }
   .body_table {
-    height: 30em;
+    height: 20em;
     overflow: scroll;
   }
   .pieces_results {

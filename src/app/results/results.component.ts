@@ -1,8 +1,10 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, NgZone } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ObraService } from '../services/obras/obras.service'
 import { CommonModule } from '@angular/common';
-import { take, takeLast } from 'rxjs/operators';
+import { LayoutComponent } from '../layout/layout.component';
+import { StorageService } from '../storage.service';
+import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -11,29 +13,36 @@ import { take, takeLast } from 'rxjs/operators';
 export class ResultsComponent implements OnInit {
   piecesId: any = []
   title: string;
-  listPieces:Array<any>;
-  listResults;
-  constructor(private route: ActivatedRoute, private oS: ObraService) {
+  listPieces = [];
+  listResults = [];
+  constructor(private route: ActivatedRoute, private oS: ObraService, private storage: StorageService, private ngZone: NgZone) {
     this.route.params.subscribe(query => {
-      this.title = (<string>query.type);
-    });
-    this.oS.researchPiece$.asObservable().pipe(take(1)).subscribe((pieces:Array<any>) => {
-      this.listPieces = pieces;
-
-      pieces.map(piece => {
-        this.piecesId.push(piece._id)
-      });
-      
-    });
-
-    this.oS.getCountWords(this.piecesId).toPromise().then(v => {
-      this.listResults = v.data.computed;
-      console.log(this.listResults)
+      this.title = (<string>query.type).split('-').join(' ');
     });
   }
 
-  ngOnInit(): void {
-  }
+  async ngOnInit() {
+    this.storage.getResults().subscribe(v => {
+      this.listPieces = v.pieces;
+      this.listResults = v.results;
+    })
+  //   this.storage.getResults().subscribe(async ({ pieces, count, method, text }) => {
+  //     console.log(
+  //       JSON.stringify(pieces)
+  //     )
+  //     this.listPieces = pieces;
+
+  //   pieces.pieces.map(piece => {
+  //     this.piecesId.push(piece._id)
+  //   });
+
+  //   await this.oS[method]({ pieces: this.piecesId, count: Number(count), text }).toPromise().then(v => {
+  //     this.listResults = v.data.computed;
+  //     console.log(this.listResults)
+  //   });
+  //   console.log(this.listResults)
+  // });
+}
 
 }
 

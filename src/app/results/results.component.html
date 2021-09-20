@@ -1,6 +1,6 @@
 <section class="results_container">
     <header class="results_header">
-        <h2>{{title}}</h2>
+        <h2>{{title | titlecase}}</h2>
         <div class="results">
             <span class="pill" *ngFor="let result of listResults">
                 {{result?.item}}  ({{result?.frequency}})
