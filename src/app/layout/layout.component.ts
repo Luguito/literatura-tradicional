@@ -84,6 +84,7 @@ export class LayoutComponent implements OnInit {
   }
 
   goToSearch(count, method, link) {
+    if (!this.pieces) return swal.fire('Seleccione alguna obra', 'Para usar las opciones de analisis debe seleccionar alguna obra previamente', 'info')
     if (['getWordMonit'].includes(method)) {
       let pieces = [];
 
@@ -109,7 +110,7 @@ export class LayoutComponent implements OnInit {
     }
 
     this.router.navigate([`../app/analisis-obra/${link}`]).then(() => {
-      this.modalCount.close();
+      this.modalCount ? this.modalCount.close() : null;
     }).catch(e => console.error(e))
   }
 }
