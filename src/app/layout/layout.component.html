@@ -90,14 +90,14 @@
 
                 </th>
             </tr>
-            <tr *ngFor="let user of dummyData">
+            <tr *ngFor="let user of usersList">
                 <td>
                     {{user?.fullname}}
                 </td>
                 <td>
                     {{user?.email}}
                 </td>
-                <td (click)="deleteUser(user._id)">
+                <td (click)="deleteUser(user._id)" style="cursor: pointer;">
                     <i class="fas fa-trash"></i>
                 </td>
             </tr>

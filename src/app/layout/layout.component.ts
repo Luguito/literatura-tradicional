@@ -26,11 +26,11 @@ export class LayoutComponent implements OnInit {
     })
   }
 
-  openDialog(template) {
-    this.getListUsers()
+  async openDialog(template) {
+    await this.getListUsers()
     this.usersDialogRef = this.dialog.open(template, {
-      width: '800px'
-    })
+      width: '800px',
+    });
   }
 
   openCreateUser(template) {
@@ -40,7 +40,7 @@ export class LayoutComponent implements OnInit {
   }
 
   async getListUsers() {
-    this.userService.listUser().toPromise().then(v => {
+    await this.userService.listUser().toPromise().then(v => {
       this.usersList = v['data'];
     })
   }
