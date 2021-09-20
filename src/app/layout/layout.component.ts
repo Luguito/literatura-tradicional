@@ -93,7 +93,8 @@ export class LayoutComponent implements OnInit {
       })
 
       this.oService[method]({ pieces, text: count.value, method }).toPromise().then((v) => {
-        this.storage.sendResults(v.data.computed);
+        console.log(v)
+        this.storage.sendResults({ results: v.data.computed, pieces: this.pieces.pieces });
       })
       // this.storage.sendResults({ pieces: this.pieces, text: count.value, method });
     } else {
