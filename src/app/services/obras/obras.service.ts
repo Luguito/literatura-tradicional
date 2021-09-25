@@ -14,6 +14,10 @@ export class ObraService {
         return <Observable<any>>this.http.get(this.apiRoot + 'setting');
     }
 
+    getLocationFilters(): Observable<any> {
+        return this.http.get(this.apiRoot + 'setting/location')
+    }
+
     postFilters(body): Observable<any> {
         return <Observable<any>>this.http.post(this.apiRoot + 'works/filter', body)
     }

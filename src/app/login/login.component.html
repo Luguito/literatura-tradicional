@@ -17,7 +17,7 @@
                     <input type="password" formControlName="password" placeholder="Contraseña">
                 </label>
             </div>
-            <a href="#" class="redirect_forgot">¿Olvidaste la contraseña?</a>
+            <a (click)="openForgotPassword(forgotPassword)" class="redirect_forgot pointer">¿Olvidaste la contraseña?</a>
             <div class="options_login">
                 <button (click)="sendLogIn()">
                     <mat-spinner diameter='20' *ngIf="loadingLogin"></mat-spinner>
@@ -27,3 +27,19 @@
         </div>
     </div>
 </section>
+
+<ng-template #forgotPassword>
+    <header class="forgot_header">
+        <h3>Recuperar Contraseña</h3>
+    </header>
+    <section class="forgot_container">
+        <mat-form-field>
+            <mat-label>Introduce tu nombre de usuario</mat-label>
+            <input type="text" matInput [formControl]="forgotUser">
+        </mat-form-field>
+    </section>
+    <footer class="forgot_footer">
+        <button mat-button (click)="forgetRef.close()">Cancelar</button>
+        <button mat-button color="warn" (click)="forgetPassword()">Recuperar</button>
+    </footer>
+</ng-template>

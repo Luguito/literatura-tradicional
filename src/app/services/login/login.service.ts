@@ -13,4 +13,8 @@ export class LoginService {
             throw error.message 
         }));
     }
+
+    forgotPassword(username){
+        return this.http.post(this.apiRoot + 'forgot-password', username);
+    }
 }

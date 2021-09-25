@@ -78,3 +78,21 @@
         }
     }
 }
+
+
+header.forgot_header {
+
+}
+section.forgot_container {
+    width: 100%;
+    margin: 2em 0;
+    & > mat-form-field{
+        width: 100%;
+        padding: 0 2em 0 0;
+    }
+}
+footer.forgot_footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -27,7 +27,7 @@ export class LayoutComponent implements OnInit {
   }
 
   async openDialog(template) {
-    await this.getListUsers()
+    await this.getListUsers();
     this.usersDialogRef = this.dialog.open(template, {
       width: '800px',
     });
