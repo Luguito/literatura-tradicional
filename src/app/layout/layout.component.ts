@@ -17,7 +17,12 @@ export class LayoutComponent implements OnInit {
   user: string = localStorage.user ?? 'Camilo Sanchez';
   panelOpenState: boolean = false;
   modalCount: MatDialogRef<any>;
-  constructor(private dialog: MatDialog, private fb: FormBuilder, private router: Router, private oService: ObraService,
+  phrase: Array<any> = [];
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  removable = true;
+  selectable = true;
+  constructor(private dialog: MatDialog, private fb: FormBuilder, private router: Router,
+    private oService: ObraService, private mat: MatSnackBar,
     private storage: StorageService, private userService: UserService) { }
 
   ngOnInit(): void {
@@ -75,6 +80,7 @@ export class LayoutComponent implements OnInit {
     let nameTemplate = (<string>template['_declarationTContainer'].localNames[0]).split('_')[1]
 
     this.modalCount = this.dialog.open(template, {
+      width: '500px',
       data: {
         name: nameTemplate,
         method,
@@ -84,6 +90,7 @@ export class LayoutComponent implements OnInit {
   }
 
   goToSearch(count, method, link) {
+    this.mat.open('Analizando Obras...');
     if (!this.pieces) return swal.fire('Seleccione alguna obra', 'Para usar las opciones de analisis debe seleccionar alguna obra previamente', 'info')
     if (['getWordMonit'].includes(method)) {
       let pieces = [];
@@ -93,10 +100,10 @@ export class LayoutComponent implements OnInit {
       })
 
       this.oService[method]({ pieces, text: count.value, method }).toPromise().then((v) => {
-        console.log(v)
+        if (v.data.computed.length == 0) return swal.fire('Informacion', 'No se encontraron coincidencias', 'info');
         this.storage.sendResults({ results: v.data.computed, pieces: this.pieces.pieces });
+        this.mat.dismiss();
       })
-      // this.storage.sendResults({ pieces: this.pieces, text: count.value, method });
     } else {
       let pieces = [];
 
@@ -105,14 +112,34 @@ export class LayoutComponent implements OnInit {
       })
 
       this.oService[method]({ pieces, count: Number(count.value), method }).toPromise().then((v) => {
+        if (v.data.computed.length == 0) return swal.fire('Informacion', 'No se encontraron coincidencias', 'info');
         this.storage.sendResults({ results: v.data.computed, pieces: this.pieces.pieces });
+        this.mat.dismiss();
       })
-      // this.storage.sendResults({ pieces: this.pieces, count: count.value, method });
     }
 
     this.router.navigate([`../app/analisis-obra/${link}`]).then(() => {
       this.modalCount ? this.modalCount.close() : null;
-    }).catch(e => console.error(e))
+    }).catch(e => console.error(e));
+  }
+
+  add(event): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.phrase.push(value);
+    }
+    // Clear the input value
+    event.input.value = ''
+  }
+
+  remove(fruit): void {
+    const index = this.phrase.indexOf(fruit);
+
+    if (index >= 0) {
+      this.phrase.splice(index, 1);
+    }
   }
 }
 
@@ -145,11 +172,13 @@ import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angula
 import { UserService, ObraService } from '../services';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { StorageService } from '../storage.service';
-import { switchAll } from 'rxjs/operators';
+import { MatChipsModule } from '@angular/material/chips'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @NgModule({
-  imports: [MatButtonModule, LayoutRouting, CommonModule, MatIconModule, MatInputModule, MatExpansionModule,
-    MatRippleModule, ReactiveFormsModule, MatSidenavModule, MatDialogModule],
+  imports: [MatButtonModule, LayoutRouting, CommonModule, MatIconModule, MatInputModule, MatExpansionModule,MatChipsModule,
+    MatSnackBarModule, MatRippleModule, ReactiveFormsModule, MatSidenavModule, MatDialogModule],
   exports: [],
   declarations: [LayoutComponent]
 })

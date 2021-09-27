@@ -22,7 +22,7 @@ section.results_container {
     }
   }
   .body_table {
-    height: 20em;
+    height: 17em;
     overflow: scroll;
   }
   .pieces_results {
@@ -45,5 +45,14 @@ section.results_container {
       padding-left: 0.5em;
       margin-top: 1em;
     }
+  }
+}
+
+.backHistory {
+  color: rgba(187, 181, 181, 0.76);
+  transition: .5s;
+  &:hover {
+    color: black;
+    transition: .5s;
   }
 }

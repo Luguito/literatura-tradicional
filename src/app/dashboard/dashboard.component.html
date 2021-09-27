@@ -1,7 +1,7 @@
 <section class="main_container_search">
     <input type="text" placeholder="Titulo de la obra o Codigo" (keyup)="filterbySearch($event)">
 </section>
-<app-filters (filtersApplied)="filtrarObras($event)" [showButton]="true" [loading]="loadingFilter"></app-filters>
+<app-filters (filtersApplied)="filtrarObras($event)" [buttons]="true"></app-filters>
 <section class="main_list_books">
     <div>
         <table>
@@ -34,7 +34,7 @@
                     <i class="far fa-check-circle" *ngIf="blog?.select" style="color: green;"></i>
                     <i class="far fa-circle" *ngIf="!blog?.select"></i>
                 </td>
-                <td (click)="openDetails(blog)">
+                <td (click)="openDetails(blog)" class="pointer">
                     {{blog?.code}}
                 </td>
                 <td>

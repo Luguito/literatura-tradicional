@@ -53,7 +53,7 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <p routerLink="../app/nueva-obra">Nueva Obra</p>
-                    <p routerLink="../app/nuevo-post">Nuevo Post</p>
+                    <!-- <p routerLink="../app/nuevo-post">Nuevo Post</p> -->
                     <p (click)="openDialog(users)">Nuevo colaborador</p>
                 </mat-expansion-panel>
             </mat-accordion>
@@ -152,7 +152,7 @@
         </mat-form-field>
     </section>
     <footer style="display: flex;align-items: center;justify-content: center; gap: 2em;">
-        <button mat-button>Cancelar</button>
+        <button mat-button (click)="modalCount.close()">Cancelar</button>
         <button mat-button color="accent" (click)="goToSearch(count, data.method, data.link)">Buscar</button>
     </footer>
 </ng-template>
@@ -160,14 +160,23 @@
     <header style="margin-bottom: 1em;">
         <h4>Agrega la Frase/Oracion</h4>
     </header>
-    <section style="display: flex;align-items: center;justify-content: center;">
-        <mat-form-field>
+    <section>
+        <mat-form-field style="width: 100%;">
             <mat-label>Frase</mat-label>
-            <input matInput #phrase>
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                  <mat-chip *ngFor="let fruit of phrase" [removable]="removable" (removed)="remove(fruit)"
+                  [selectable]="selectable">
+                    {{fruit}}
+                    <button matChipRemove *ngIf="removable">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip>
+                  <input [matChipInputFor]="chipList" (matChipInputTokenEnd)="add($event)" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+                </mat-chip-list>
         </mat-form-field>
     </section>
     <footer style="display: flex;align-items: center;justify-content: center; gap: 2em;">
-        <button mat-button>Cancelar</button>
+        <button mat-button (click)="modalCount.close()">Cancelar</button>
         <button mat-button color="accent" (click)="goToSearch(phrase, data.method, data.link)">Buscar</button>
     </footer>
 </ng-template>

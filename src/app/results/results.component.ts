@@ -15,7 +15,7 @@ export class ResultsComponent implements OnInit {
   title: string;
   listPieces = [];
   listResults = [];
-  constructor(private route: ActivatedRoute, private oS: ObraService, private storage: StorageService, private ngZone: NgZone) {
+  constructor(private route: ActivatedRoute, private oS: ObraService, private storage: StorageService) {
     this.route.params.subscribe(query => {
       this.title = (<string>query.type).split('-').join(' ');
     });
@@ -44,6 +44,9 @@ export class ResultsComponent implements OnInit {
   // });
 }
 
+  goBack(){
+    window.history.back();
+  }
 }
 
 @NgModule({

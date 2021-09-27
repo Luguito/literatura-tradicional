@@ -6,7 +6,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 })
 export class ObraService {
     private apiRoot: string = "https://uptc-dev.herokuapp.com/api/";
-    // private apiRoot: string = "http://ab04-181-235-66-173.ngrok.io/api/";
+    // private apiRoot: string = "http://bf1d-191-92-96-150.ngrok.io/api/";
     researchPiece$: ReplaySubject<any> = new ReplaySubject();
     constructor(private http: HttpClient) { }
 

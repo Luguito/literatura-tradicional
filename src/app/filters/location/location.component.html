@@ -1,0 +1,24 @@
+<section *ngIf="locationList" class="country_filters" [formGroup]="locationGroup">
+    <select class="filter_select" formControlName="country">
+        <option disabled selected [value]="null">Pais</option>
+        <option *ngFor="let pais of locationList['pais']" [value]="pais">{{pais}}</option>
+    </select>
+    <select class="filter_select" formControlName="state"
+        [disabled]="this.locationGroup.get('country').value !== 'Colombia'">
+        <option disabled selected [value]="null">Estado/Departamento</option>
+        <option *ngFor="let estado of locationList['estado']" [value]="estado">{{estado}}</option>
+    </select>
+    <select class="filter_select" formControlName="city"
+        [disabled]="!this.locationGroup.get('state').value">
+        <option disabled selected [value]="null">Ciudad</option>
+        <option *ngFor="let ciudad of city" [value]="ciudad">{{ciudad}}</option>
+    </select>
+    <button mat-ripple class="btn_filter" (click)="saveFilters()" *ngIf="showButton">
+        <mat-spinner diameter='20' *ngIf="showLoading"></mat-spinner>
+        <p>Filtrar</p>
+    </button>
+    <button mat-ripple class="btn_clear" (click)="clearFilters()" *ngIf="showButton">
+        <mat-spinner diameter='20' *ngIf="showLoading"></mat-spinner>
+        <p>Limpiar</p>
+    </button>
+</section> 

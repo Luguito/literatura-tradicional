@@ -15,22 +15,25 @@
                 </option>
             </select>
         </div>
-        <div class="second_row" *ngIf="this.filterGroup.get('genreType').value">
+        <div class="second_row">
             <select class="filter_select" formControlName="lyricProseType"
-                [disabled]="this.filterGroup.get('genre').value === 'Narrativa' || this.filterGroup.get('genreType').value === 'Verso'">
+                *ngIf="this.filterGroup.get('genre').value && this.filterGroup.get('genre').value !== 'Narrativa' && !this.filterGroup.get('genreType').value
+                || this.filterGroup.get('genre').value && this.filterGroup.get('genre').value !== 'Narrativa' && this.filterGroup.get('genreType').value && this.filterGroup.get('genreType').value !== 'Verso'">
                 <option disabled selected [value]="null">Prosa Lirica</option>
                 <option *ngFor="let prosaLirica of listFilters['prosaLirica']" [value]="prosaLirica">{{prosaLirica}}
                 </option>
             </select>
             <select class="filter_select" formControlName="narrativeProseType"
-                [disabled]="this.filterGroup.get('genre').value === 'Lírica' || this.filterGroup.get('genreType').value === 'Verso'">
+                *ngIf="this.filterGroup.get('genre').value && this.filterGroup.get('genre').value !== 'Lírica' && !this.filterGroup.get('genreType').value || 
+                this.filterGroup.get('genre').value && this.filterGroup.get('genre').value !== 'Lírica' && this.filterGroup.get('genreType').value && this.filterGroup.get('genreType').value !== 'Verso'">
                 <option disabled selected [value]="null">Prosa Narrativa</option>
                 <option *ngFor="let prosaNarrativa of listFilters['prosaNarrativa']" [value]="prosaNarrativa">
                     {{prosaNarrativa}}
                 </option>
             </select>
             <select class="filter_select" formControlName="lyricVerseType"
-                [disabled]="this.filterGroup.get('genreType').value === 'Prosa'">
+                *ngIf="this.filterGroup.get('genre').value && this.filterGroup.get('genre').value !== 'Narrativa' && !this.filterGroup.get('genreType').value || 
+                this.filterGroup.get('genre').value && this.filterGroup.get('genre').value !== 'Narrativa' && this.filterGroup.get('genreType').value && this.filterGroup.get('genreType').value !== 'Prosa'">
                 <option disabled selected [value]="null">Verso Lirica</option>
                 <option *ngFor="let versoLirica of listFilters['versoLirica']" [value]="versoLirica">{{versoLirica}}
                 </option>
@@ -38,24 +41,7 @@
         </div>
     </section>
     <mat-divider [vertical]="true"></mat-divider>
-    <section *ngIf="listFilters" class="country_filters" [formGroup]="filterGroup">
-        <select class="filter_select" formControlName="country">
-            <option disabled selected [value]="null">Pais</option>
-            <option *ngFor="let pais of listFilters['pais']" [value]="pais">{{pais}}</option>
-        </select>
-        <select class="filter_select" formControlName="state"
-            [disabled]="this.filterGroup.get('country').value !== 'Colombia'">
-            <option disabled selected [value]="null">Estado/Departamento</option>
-            <option *ngFor="let estado of listFilters['estado']" [value]="estado">{{estado}}</option>
-        </select>
-        <select class="filter_select" formControlName="city"
-            [disabled]="!this.filterGroup.get('state').value">
-            <option disabled selected [value]="null">Ciudad</option>
-            <option *ngFor="let ciudad of citys" [value]="ciudad">{{ciudad}}</option>
-        </select>
-        <button mat-ripple class="btn_filter" (click)="sendFilters()" *ngIf="showButton">
-            <mat-spinner diameter='20' *ngIf="showLoading"></mat-spinner>
-            <p>Filtrar</p>
-        </button>
-    </section>
+    <app-location [filters]="this.filterGroup.value" [showButton]="showButton"
+    (locationOutput)="saveFilters($event)" 
+    (clear)="clearFilters()"></app-location>
 </div>

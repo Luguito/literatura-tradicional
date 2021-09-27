@@ -7,30 +7,19 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent implements OnInit {
-  @Input() showButton: boolean;
-  @Input('loading') showLoading: boolean;
   @Input('edit') filtersEdit;
+  @Input('buttons') showButton;
   @Output() filtersApplied: EventEmitter<Object> = new EventEmitter();
   filterGroup: FormGroup = this.filtersForm;
   listFilters: any;
-  citys: any;
   constructor(private fb: FormBuilder, private obService: ObraService) { }
 
-  ngOnInit(): void {
-    this.obService.getFilters().toPromise().then(filters => {
-      console.log(filters)
+  async ngOnInit(): Promise<void> {
+    await this.obService.getFilters().toPromise().then(filters => {
       this.listFilters = filters.data;
     });
 
     this.filtersEdit && this.setEditFilter();
-
-    this.filterGroup.get('state').valueChanges.subscribe(city => {
-      this.citys = this.listFilters['ciudades'].find(({ state }) => state == city).cities
-    });
-
-    !this.showButton && this.filterGroup.get('city').valueChanges.subscribe(city => {
-      this.filtersApplied.next(this.filterGroup.getRawValue());
-    });
   }
 
   get filtersForm(): FormGroup {
@@ -48,38 +37,29 @@ export class FiltersComponent implements OnInit {
     });
   }
 
-  saveFilter(type: string, { target: { value } }) {
-    this.filterGroup.get(type).setValue(value);
-  }
-
-  setEditFilter(){
+  setEditFilter() {
     this.filterGroup.patchValue(this.filtersEdit);
     this.filterGroup.get('country').reset(this.filtersEdit.country);
     this.filterGroup.get('state').setValue(this.filtersEdit.state);
     this.filterGroup.get('city').setValue(this.filtersEdit.city);
-    console.log(this.filterGroup)
   }
 
-  sendFilters() {
-    let obj = {};
+  saveFilters(filters){
+    this.filtersApplied.next(filters)
+  }
 
-    for (let key in this.filterGroup.controls) {
-      if (this.filterGroup.get(key).value !== null && this.filterGroup.get(key).value.length > 0) {
-        obj[key] = this.filterGroup.get(key).value
-      }
-    }
-    if (Object.keys(obj).length === 0) return;
-    
-    this.filtersApplied.next(obj);
+  clearFilters(){
+    this.filterGroup.reset();
   }
 }
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider'
 import { ObraService } from '../services';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms'
+import { LocationModule } from './location/location.component';
 @NgModule({
-  imports: [MatProgressSpinnerModule, ReactiveFormsModule, MatDividerModule, CommonModule],
+  imports: [MatProgressSpinnerModule, ReactiveFormsModule, MatDividerModule, CommonModule, LocationModule],
   exports: [FiltersComponent],
   declarations: [FiltersComponent]
 })
