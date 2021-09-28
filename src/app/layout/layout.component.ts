@@ -89,6 +89,7 @@ export class LayoutComponent implements OnInit {
   }
 
   goToSearch(count, method, link) {
+    window.dispatchEvent(new Event('clearResults'))
     this.mat.open('Analizando Obras...');
     if (!this.pieces) {
       this.mat.dismiss();
@@ -103,7 +104,10 @@ export class LayoutComponent implements OnInit {
 
       this.oService[method]({ pieces, text: this.phrase, method }).toPromise().then((v) => {
         console.log(v)
-        if (v.data.computed.length == 0) return swal.fire('Informacion', 'No se encontraron coincidencias', 'info');
+        if (v.data.computed.length == 0) {
+          this.mat.dismiss();
+          return swal.fire('Informacion', 'No se encontraron coincidencias', 'info');
+        }
         this.storage.sendResults({ results: v.data.computed, pieces: this.pieces.pieces });
         this.mat.dismiss();
       })
@@ -115,7 +119,10 @@ export class LayoutComponent implements OnInit {
       })
 
       this.oService[method]({ pieces, count: Number(count.value), method }).toPromise().then((v) => {
-        if (v.data.computed.length == 0) return swal.fire('Informacion', 'No se encontraron coincidencias', 'info');
+        if (v.data.computed.length == 0) { 
+          this.mat.dismiss();
+          return swal.fire('Informacion', 'No se encontraron coincidencias', 'info');
+        }
         this.storage.sendResults({ results: v.data.computed, pieces: this.pieces.pieces });
         this.mat.dismiss();
       })

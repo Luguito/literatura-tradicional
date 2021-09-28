@@ -22,6 +22,10 @@ export class ResultsComponent implements OnInit {
     this.route.params.subscribe(query => {
       this.title = (<string>query.type).split('-').join(' ');
     });
+    window.addEventListener('clearResults', () => {
+      this.listPieces = [];
+      this.listResults = [];
+    })
   }
 
   async ngOnInit() {
