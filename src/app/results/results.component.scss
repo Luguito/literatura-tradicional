@@ -56,3 +56,17 @@ section.results_container {
     transition: .5s;
   }
 }
+.genreSection {
+  display: flex;
+  font-size: 0.8rem;
+  justify-content: space-between;
+  gap: 2em;
+}
+.corpusDetails {
+  font-size: 0.8rem;
+}
+.footerDetails{
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+}

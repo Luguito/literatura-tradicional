@@ -19,8 +19,7 @@ export class LayoutComponent implements OnInit {
   modalCount: MatDialogRef<any>;
   phrase: Array<any> = [];
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  removable = true;
-  selectable = true;
+
   constructor(private dialog: MatDialog, private fb: FormBuilder, private router: Router,
     private oService: ObraService, private mat: MatSnackBar,
     private storage: StorageService, private userService: UserService) { }
@@ -91,15 +90,19 @@ export class LayoutComponent implements OnInit {
 
   goToSearch(count, method, link) {
     this.mat.open('Analizando Obras...');
-    if (!this.pieces) return swal.fire('Seleccione alguna obra', 'Para usar las opciones de analisis debe seleccionar alguna obra previamente', 'info')
+    if (!this.pieces) {
+      this.mat.dismiss();
+      return swal.fire('Seleccione alguna obra', 'Para usar las opciones de analisis debe seleccionar alguna obra previamente', 'info')
+    }
     if (['getWordMonit'].includes(method)) {
       let pieces = [];
 
       this.pieces.pieces.map(v => {
-        pieces.push(v)
+        pieces.push(v._id)
       })
 
-      this.oService[method]({ pieces, text: count.value, method }).toPromise().then((v) => {
+      this.oService[method]({ pieces, text: this.phrase, method }).toPromise().then((v) => {
+        console.log(v)
         if (v.data.computed.length == 0) return swal.fire('Informacion', 'No se encontraron coincidencias', 'info');
         this.storage.sendResults({ results: v.data.computed, pieces: this.pieces.pieces });
         this.mat.dismiss();
@@ -108,7 +111,7 @@ export class LayoutComponent implements OnInit {
       let pieces = [];
 
       this.pieces.pieces.map(v => {
-        pieces.push(v)
+        pieces.push(v._id)
       })
 
       this.oService[method]({ pieces, count: Number(count.value), method }).toPromise().then((v) => {
@@ -128,14 +131,15 @@ export class LayoutComponent implements OnInit {
 
     // Add our fruit
     if (value) {
-      this.phrase.push(value);
+      this.phrase.push(value)
     }
+
     // Clear the input value
-    event.input.value = ''
+    event.input!.value = '';
   }
 
-  remove(fruit): void {
-    const index = this.phrase.indexOf(fruit);
+  remove(phrase): void {
+    const index = this.phrase.indexOf(phrase);
 
     if (index >= 0) {
       this.phrase.splice(index, 1);
@@ -150,7 +154,8 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.component').then(m => m.DashboardModule) },
       { path: 'nueva-obra', loadChildren: () => import('../new-book/new-book.component').then(m => m.NewBookModule) },
       { path: 'nuevo-post', loadChildren: () => import('../new-post/new-post.component').then(m => m.NewPostModule) },
-      { path: 'analisis-obra/:type', loadChildren: () => import('../results/results.component').then(m => m.ResultsModule) }
+      { path: 'analisis-obra/:type', loadChildren: () => import('../results/results.component').then(m => m.ResultsModule) },
+      { path: 'details/:id', component: DetailsComponent },
     ]
   }
 ]
@@ -175,11 +180,12 @@ import { StorageService } from '../storage.service';
 import { MatChipsModule } from '@angular/material/chips'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { DetailsComponent } from '../details/details.component';
 
 @NgModule({
-  imports: [MatButtonModule, LayoutRouting, CommonModule, MatIconModule, MatInputModule, MatExpansionModule,MatChipsModule,
+  imports: [MatButtonModule, LayoutRouting, CommonModule, MatIconModule, MatInputModule, MatExpansionModule, MatChipsModule,
     MatSnackBarModule, MatRippleModule, ReactiveFormsModule, MatSidenavModule, MatDialogModule],
   exports: [],
-  declarations: [LayoutComponent]
+  declarations: [LayoutComponent],
 })
 export class LayoutModule { }

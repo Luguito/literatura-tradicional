@@ -1,0 +1,116 @@
+.new_book_container {
+  & > header.title_new_book {
+    color: #404040;
+    padding-left: 3em;
+    .title {
+      font-size: 1.8rem;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      padding-left: 0.7em;
+    }
+  }
+  .body_new_book {
+    .container_types_book {
+      border-bottom: 2px solid #40404011;
+      padding: 1em 4em;
+      display: flex;
+      .filters_type{
+        display: flex;
+        width: 50%;
+        gap: 1em;
+      }
+      .country_filters{
+        display: flex;
+        width: 50%;
+        gap: 1em;
+        margin-left: 1em;
+      }
+    }
+    .body_form {
+      margin-top: 1em;
+      height: 27em;
+      .data_book {
+        display: flex;
+        // justify-content: center;
+        padding: 1em;
+        .type_book {
+          width: 20%;
+          display: flex;
+          justify-content: center;
+        }
+        .select_group {
+          width: 80%;
+          .first_row,
+          .last_row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2em;
+            gap: 5em;
+            & > input[type="text"] {
+              border: none;
+              outline: none;
+              border-bottom: 2px solid #eb57578a;
+              width: 15em;
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+      .content_book {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 4em;
+        height: 63%;
+      }
+      .footer_book {
+        display: flex;
+        align-items: baseline;
+        gap: 2.5em;
+        padding: 0 4em;
+        input {
+          border: none;
+          outline: none;
+          border-bottom: 2px solid #eb57578a;
+          width: 12em;
+          font-size: 1rem;
+        }
+        input[type="number"] {
+          width: 5%;
+        }
+        .select_group {
+          width: 50%;
+          select {
+            border: 1px solid #eb5757;
+            border-radius: 5px;
+            height: 2.6em;
+            width: 33%;
+            margin-top: 1em;
+            color: #eb5757;
+            outline: none;
+          }
+        }
+        .save_btn {
+          border: none;
+          border-radius: 10px;
+          width: 15%;
+          height: 2.5em;
+          background-color: #eb5757;
+          color: white;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+.filter_select {
+  border: 1.5px solid #eb5757;
+  border-radius: 5px;
+  height: 2.6em;
+  width: 50%;
+  margin-top: 1em;
+  color: #eb5757;
+  outline: none;
+}

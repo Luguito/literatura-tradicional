@@ -1,0 +1,90 @@
+<section class="new_book_container">
+    <header class="title_new_book">
+        <h2 class="title">Detalles de la Obra<small> {{' - ' + piece?.code}}</small> </h2>
+    </header>
+    <main class="body_new_book">
+        <div class="container_types_book">
+            <section class="filters_type">
+                <select class="filter_select" disabled>
+                    <option selected disabled>{{piece?.type}}</option>
+                </select>
+                <select class="filter_select" disabled>
+                    <option disabled selected>{{piece?.genre}}</option>
+                </select>
+                <select class="filter_select" disabled>
+                    <option disabled selected>{{piece?.genreType}}</option>
+                </select>
+            </section>
+            <section class="country_filters">
+                <select class="filter_select" disabled>
+                    <option disabled selected>{{piece?.location?.country}}</option>
+                </select>
+                <select class="filter_select" disabled>
+                    <option disabled selected>{{piece?.location?.state}}</option>
+                </select>
+                <select class="filter_select" disabled>
+                    <option disabled selected>{{piece?.location?.city}}</option>
+                </select>
+            </section>
+        </div>
+        <form class="body_form">
+            <div class="data_book">
+                <div class="type_book">
+                    <select class="filter_select" disabled>
+                        <option selected disabled>{{piece?.source?.type}}</option>
+                    </select>
+                </div>
+                <div class="select_group" *ngIf="piece?.source?.type === 'Texto'">
+                    <div class="first_row">
+                        <input type="text" placeholder="Titulo" [value]="piece?.source?.isText?.title" disabled>
+                        <input type="text" placeholder="Author" [value]="piece?.source?.isText?.author" disabled>
+                        <input type="text" placeholder="Editorial" [value]="piece?.source?.isText?.editorial" disabled>
+                        <input type="text" placeholder="Volumen/Editorial" [value]="piece?.source?.isText?.volumen"
+                            disabled>
+                    </div>
+                    <div class="last_row">
+                        <input type="text" placeholder="Año" [value]="piece?.source?.isText?.year" disabled>
+                        <input type="text" placeholder="Fuente de publicacion" [value]="piece?.source?.isText?.link"
+                            disabled>
+                        <input type="text" placeholder="Referencia" [value]="piece?.source?.isText?.reference" disabled>
+                    </div>
+                </div>
+                <div class="select_group" *ngIf="piece?.source?.type !== 'Texto'">
+                    <div class="first_row">
+                        <input type="text" placeholder="Titulo" [value]="piece?.source?.isDigital?.title" disabled>
+                        <input type="text" placeholder="Author" [value]="piece?.source?.isDigital?.author" disabled>
+                    </div>
+                    <div class="last_row">
+                        <input type="text" placeholder="Año" [value]="piece?.source?.isDigital?.year" disabled>
+                        <input type="text" placeholder="Fuente de publicacion" [value]="piece?.source?.isDigital?.title"
+                            disabled>
+                        <input type="text" placeholder="Link" [value]="piece?.source?.isDigital?.link" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="content_book">
+                <span style="margin-bottom: 1em;">
+                    <b>Corpus</b>
+                </span>
+                <div id="editor2">
+                    {{piece?.corpus}}
+                </div>
+            </div>
+            <div class="footer_book">
+                <input type="text" [value]="piece?.informant?.name" disabled>
+                <input type="number" [value]="piece?.informant?.age" disabled>
+                <div class="select_group">
+                    <select disabled>
+                        <option selected disabled>{{piece?.informant?.location?.country}}</option>
+                    </select>
+                    <select disabled>
+                        <option selected disabled>{{piece?.informant?.location?.state}}</option>
+                    </select>
+                    <select disabled>
+                        <option selected disabled>{{piece?.informant?.location?.city}}</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </main>
+</section>

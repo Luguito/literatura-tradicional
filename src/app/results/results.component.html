@@ -5,8 +5,8 @@
         </small>
         <h2>{{title | titlecase}}</h2>
         <div class="results">
-            <span class="pill" *ngFor="let result of listResults">
-                {{result?.item}}  ({{result?.frequency}})
+            <span class="pill" *ngFor="let result of listResults; index as i">
+                {{result?.item}} ({{result?.frequency}})
             </span>
         </div>
     </header>
@@ -20,10 +20,36 @@
             </div>
             <div class="body_table">
                 <tr *ngFor="let piece of listPieces">
-                    <td>{{piece?.code}}</td>
+                    <td class="pointer" (click)="openModal(details, piece)">{{piece?.code}}</td>
                     <td>{{piece?.corpus}}</td>
                 </tr>
             </div>
         </table>
     </div>
 </section>
+<ng-template #details let-data>
+    <header>
+        <h3>Details - {{data?.code}}</h3>
+    </header>
+    <section>
+        <h5>Titulo: {{data?.title || '-'}}</h5>
+        <div class="genreSection">
+            <div>
+                <b>Genero</b>
+                <p>{{data?.genre}}</p>
+            </div>
+            <div>
+                <b>Tipo de genero</b>
+                <p>{{data?.genreType}}</p>
+            </div>
+        </div>
+        <div class="corpusDetails">
+            <b>Corpus</b>
+            <p>{{data?.corpus}}</p>
+        </div>
+    </section>
+    <footer class="footerDetails">
+        <button mat-button (click)="modalRef.close()">Cancelar</button>
+        <button mat-button color="accent" (click)="goToDetails(data)">Ver detalles</button>
+    </footer>
+</ng-template>

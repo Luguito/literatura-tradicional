@@ -39,9 +39,8 @@
                             <p (click)="openModal(count_frase, 'getSameBeginning','parrafos-con-el-mismo-inicio')">
                                 Parrafos con el mismo
                                 inicio</p>
-                            <p routerLink="../app/analisis-obra/nombres-propios">Nombres Propios</p>
-                            <p routerLink="../app/analisis-obra/porcentajes-de-coincidencias">Porcentajes de
-                                coincidencias</p>
+                            <p (click)="goToSearch('', 'getOwnNames', 'nombres-propios')">Nombres Propios</p>
+                            <!-- <p routerLink="../app/analisis-obra/porcentajes-de-coincidencias">Porcentajes de coincidencias</p> -->
                         </mat-expansion-panel>
                     </mat-accordion>
                     <p>Analizar Texto</p>
@@ -160,21 +159,19 @@
     <header style="margin-bottom: 1em;">
         <h4>Agrega la Frase/Oracion</h4>
     </header>
-    <section>
-        <mat-form-field style="width: 100%;">
-            <mat-label>Frase</mat-label>
-                <mat-chip-list #chipList aria-label="Fruit selection">
-                  <mat-chip *ngFor="let fruit of phrase" [removable]="removable" (removed)="remove(fruit)"
-                  [selectable]="selectable">
-                    {{fruit}}
-                    <button matChipRemove *ngIf="removable">
-                      <mat-icon>cancel</mat-icon>
-                    </button>
-                  </mat-chip>
-                  <input [matChipInputFor]="chipList" (matChipInputTokenEnd)="add($event)" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-                </mat-chip-list>
-        </mat-form-field>
-    </section>
+    <mat-form-field style="width: 100%;">
+        <mat-label>Etiquetas</mat-label>
+        <mat-chip-list #chipList aria-label="phrase selection">
+            <mat-chip *ngFor="let fruit of phrase" [selectable]="true" [removable]="true"
+                (removed)="remove(fruit)">
+                {{fruit}}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Nueva etiquetas..." [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+    </mat-form-field>
     <footer style="display: flex;align-items: center;justify-content: center; gap: 2em;">
         <button mat-button (click)="modalCount.close()">Cancelar</button>
         <button mat-button color="accent" (click)="goToSearch(phrase, data.method, data.link)">Buscar</button>

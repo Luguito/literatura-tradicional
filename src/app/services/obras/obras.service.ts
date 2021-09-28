@@ -27,7 +27,6 @@ export class ObraService {
     }
 
     getDetail(_id: string): Observable<any> {
-
         return <Observable<any>>this.http.get(this.apiRoot + 'works/' + _id);
     }
 
