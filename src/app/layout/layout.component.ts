@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { PostsComponent } from '../posts/posts.component';
 import { CommonModule } from '@angular/common';
@@ -6,7 +6,8 @@ import swal from 'sweetalert2';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LayoutComponent implements OnInit {
   pieces;
@@ -119,7 +120,7 @@ export class LayoutComponent implements OnInit {
       })
 
       this.oService[method]({ pieces, count: Number(count.value), method }).toPromise().then((v) => {
-        if (v.data.computed.length == 0) { 
+        if (v.data.computed.length == 0) {
           this.mat.dismiss();
           return swal.fire('Informacion', 'No se encontraron coincidencias', 'info');
         }

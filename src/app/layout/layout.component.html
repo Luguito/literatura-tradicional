@@ -1,70 +1,81 @@
-<div class="container_layout">
-    <aside class="navbar">
-        <div class="user_container">
-            <div class="img_user">
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_d3SP2vKOeGFVESn5rk6xnPiQ0naW2e-ldA&usqp=CAU">
-                {{user | titlecase}}
+<mat-sidenav-container class="container_layout">
+    <mat-sidenav mode="side" opened class="navbar">
+        <aside>
+            <div class="user_container">
+                <div class="img_user">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_d3SP2vKOeGFVESn5rk6xnPiQ0naW2e-ldA&usqp=CAU">
+                    {{user | titlecase}}
+                </div>
             </div>
+            <ul>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="fas fa-columns"></i>Dashboard
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p routerLink="../app/dashboard" routerLinkActive="active">Obras</p>
+                        <p routerLink="../app/posts" routerLinkActive="active">Post</p>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel id="test">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="fas fa-book"></i>Analisis
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Analizar Obra</mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <p (click)="goToSearch('', 'getCountWords', 'contar-palabras')">Contar Palabras</p>
+                                <p (click)="openModal(count_frase, 'getCountPhrase', 'contar-frases')">Contar Frases</p>
+                                <p (click)="openModal(frase, 'getWordMonit', 'monitoreo-de-palabras')">Monitoreo de
+                                    Palabras</p>
+                                <p (click)="openModal(count_frase, 'getSameSentence', 'oraciones-con-el-mismo-inicio')">
+                                    Oraciones con el mismo
+                                    inicio</p>
+                                <p (click)="openModal(count_frase, 'getSameBeginning','parrafos-con-el-mismo-inicio')">
+                                    Parrafos con el mismo
+                                    inicio</p>
+                                <p (click)="goToSearch('', 'getOwnNames', 'nombres-propios')">Nombres Propios</p>
+                                <p routerLink="../app/analisis-obra/porcentajes-de-coincidencias">Porcentajes de
+                                    coincidencias</p>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Analizar Texto</mat-panel-title>
+                                </mat-expansion-panel-header>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel id="test">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="fas fa-plus-circle"></i> Nuevo
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p routerLink="../app/nueva-obra">Nueva Obra</p>
+                        <!-- <p routerLink="../app/nuevo-post">Nuevo Post</p> -->
+                        <p (click)="openDialog(users)">Nuevo colaborador</p>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <li (click)="logOut()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
+                </li>
+            </ul>
+        </aside>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="render_components">
+            <router-outlet></router-outlet>
         </div>
-        <ul>
-            <mat-accordion>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <i class="fas fa-columns"></i>Dashboard
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <p routerLink="../app/dashboard" routerLinkActive="active">Obras</p>
-                    <p routerLink="../app/posts" routerLinkActive="active">Post</p>
-                </mat-expansion-panel>
-                <mat-expansion-panel id="test">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <i class="fas fa-book"></i>Analisis
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-accordion>
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>Analizar Obra</mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <p (click)="goToSearch('', 'getCountWords', 'contar-palabras')">Contar Palabras</p>
-                            <p (click)="openModal(count_frase, 'getCountPhrase', 'contar-frases')">Contar Frases</p>
-                            <p (click)="openModal(frase, 'getWordMonit', 'monitoreo-de-palabras')">Monitoreo de
-                                Palabras</p>
-                            <p (click)="openModal(count_frase, 'getSameSentence', 'oraciones-con-el-mismo-inicio')">
-                                Oraciones con el mismo
-                                inicio</p>
-                            <p (click)="openModal(count_frase, 'getSameBeginning','parrafos-con-el-mismo-inicio')">
-                                Parrafos con el mismo
-                                inicio</p>
-                            <p (click)="goToSearch('', 'getOwnNames', 'nombres-propios')">Nombres Propios</p>
-                            <p routerLink="../app/analisis-obra/porcentajes-de-coincidencias">Porcentajes de coincidencias</p>
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                    <p>Analizar Texto</p>
-                </mat-expansion-panel>
-                <mat-expansion-panel id="test">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <i class="fas fa-plus-circle"></i> Nuevo
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <p routerLink="../app/nueva-obra">Nueva Obra</p>
-                    <!-- <p routerLink="../app/nuevo-post">Nuevo Post</p> -->
-                    <p (click)="openDialog(users)">Nuevo colaborador</p>
-                </mat-expansion-panel>
-            </mat-accordion>
-            <li (click)="logOut()">
-                <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
-            </li>
-        </ul>
-    </aside>
-    <div class="render_components">
-        <router-outlet></router-outlet>
-    </div>
-</div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
 
 <ng-template #users>
     <header class="header_users">
@@ -162,8 +173,7 @@
     <mat-form-field style="width: 100%;">
         <mat-label>Etiquetas</mat-label>
         <mat-chip-list #chipList aria-label="phrase selection">
-            <mat-chip *ngFor="let fruit of phrase" [selectable]="true" [removable]="true"
-                (removed)="remove(fruit)">
+            <mat-chip *ngFor="let fruit of phrase" [selectable]="true" [removable]="true" (removed)="remove(fruit)">
                 {{fruit}}
                 <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
