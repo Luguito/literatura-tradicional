@@ -3,7 +3,10 @@
         <small class="pointer backHistory" (click)="goBack()">
             <i class="fas fa-long-arrow-alt-left"></i> Volver
         </small>
-        <h2>{{title | titlecase}}</h2>
+        <div class="title-options">
+            <h2>{{title | titlecase}}</h2>
+            <button mat-button (click)="exportResults()">Exportar resultados</button>
+        </div>
         <div class="results">
             <span class="pill" *ngFor="let result of listResults; index as i">
                 {{result?.item}} ({{result?.frequency}})

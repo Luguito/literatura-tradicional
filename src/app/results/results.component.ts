@@ -50,6 +50,27 @@ export class ResultsComponent implements OnInit {
       this.modalRef.close()
     })
   }
+
+  /**
+   * @description Download results of pieces analized
+   */
+  exportResults(){
+    let csvResult = [...this.listResults.map(result => [
+      result.item,
+      result.frequency
+    ])]
+
+    let csvContent = "data:text/csv;charset=utf-8," + csvResult.map(e => e.join(",")).join("\n");
+
+    let encoded = encodeURI(csvContent);
+
+    var link = document.createElement("a");
+    link.setAttribute("href", encoded);
+    link.setAttribute("download", "resultados.csv");
+    document.body.appendChild(link);
+    
+    link.click();
+  }
 }
 
 @NgModule({
