@@ -114,9 +114,11 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { FiltersModule } from '../filters/filters.component';
 import { NewBookModule } from '../new-book/new-book.component';
 import { StorageService } from '../storage.service';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 @NgModule({
     declarations: [DashboardComponent],
-    imports: [DashboardRouting, CommonModule, MatButtonModule, MatIconModule, MatDividerModule, MatDialogModule, FiltersModule,
+    imports: [ScrollingModule, DashboardRouting, CommonModule, MatButtonModule, MatIconModule, MatDividerModule, MatDialogModule, FiltersModule,
         NewBookModule, MatRippleModule, MatProgressSpinnerModule, MatSnackBarModule, ReactiveFormsModule, FormsModule, MatTableModule],
     exports: [DashboardComponent]
 })

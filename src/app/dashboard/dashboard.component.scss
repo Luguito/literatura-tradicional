@@ -23,9 +23,35 @@
 .main_list_books {
   height: 69%;
   overflow-y: scroll;
-  & > div {
-    display: flex;
-    justify-content: center;
+
+  .display_pieces {
+    display: grid;
+    grid-template-rows: auto;
+
+    .header_table {
+      display: grid;
+      grid-template-columns: 0.5fr repeat(6, 1fr);
+      background-color: #f0f0f0;
+      padding: 0.6em;
+      margin: 2em 2em 0 2em;
+      border-radius: 7px;
+      b {
+        justify-self: center;
+      }
+    }
+    .scrollable_list {
+      height: 30em;
+      margin-top: 1em;
+      .content_table {
+        display: grid;
+        grid-template-columns: 0.5fr repeat(6, 1fr);
+        padding: 1em;
+        margin: 0.5em 2em;
+        b {
+          justify-self: center;
+        }
+      }
+    }
   }
   & > div > table {
     width: 90%;

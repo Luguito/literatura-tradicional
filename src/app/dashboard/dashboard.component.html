@@ -3,57 +3,45 @@
 </section>
 <app-filters (filtersApplied)="filtrarObras($event)" [buttons]="true"></app-filters>
 <section class="main_list_books">
-    <div>
-        <table>
-            <tr>
-                <th (click)="selectAllPieces()">
-                    <i class="far fa-circle" *ngIf="!checkAll"></i>
-                    <i class="far fa-check-circle" *ngIf="checkAll" style="color: green;"></i>
-                </th>
-                <th>
-                    Codigo
-                </th>
-                <th>
-                    Titulo
-                </th>
-                <th class="content">
-                    Contenido
-                </th>
-                <th>
-                    Departamento
-                </th>
-                <th>
-                    Municipio
-                </th>
-                <th>
-                    Tipo de obra
-                </th>
-            </tr>
-            <tr *ngFor="let blog of listFiltered">
-                <td (click)="selectOnePiece(blog)">
-                    <i class="far fa-check-circle" *ngIf="blog?.select" style="color: green;"></i>
-                    <i class="far fa-circle" *ngIf="!blog?.select"></i>
-                </td>
-                <td (click)="openDetails(blog)" class="pointer">
-                    {{blog?.code}}
-                </td>
-                <td>
-                    {{blog?.title}}
-                </td>
-                <td class="corpus">
-                    <p>{{blog?.corpus}}</p>
-                </td>
-                <td>
-                    {{blog?.location?.state}}
-                </td>
-                <td>
-                    {{blog?.location?.city}}
-                </td>
-                <td>
-                    {{blog?.type}}
-                </td>
-            </tr>
-        </table>
+    <div class="display_pieces">
+        <div class="header_table">
+            <b (click)="selectAllPieces()">
+                <i class="far fa-circle" *ngIf="!checkAll"></i>
+                <i class="far fa-check-circle" *ngIf="checkAll" style="color: green;"></i>
+            </b>
+            <b>Codigo</b>
+            <b>Titulo</b>
+            <b>Contenido</b>
+            <b>Departamento</b>
+            <b>Municipio</b>
+            <b>Tipo de obra</b>
+        </div>
+        <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="scrollable_list">
+            <div class="content_table" *ngFor="let piece of listFiltered">
+                <b (click)="selectOnePiece(piece)">
+                    <i class="far fa-check-circle" *ngIf="piece?.select" style="color: green;"></i>
+                    <i class="far fa-circle" *ngIf="!piece?.select"></i>
+                </b>
+                <b (click)="openDetails(piece)" class="pointer">
+                    {{piece?.code}}
+                </b>
+                <b>
+                    {{piece?.title}}
+                </b>
+                <b class="corpus">
+                    <p>{{piece?.corpus}}</p>
+                </b>
+                <b>
+                    {{piece?.location?.state}}
+                </b>
+                <b>
+                    {{piece?.location?.city}}
+                </b>
+                <b>
+                    {{piece?.type}}
+                </b>
+            </div>
+        </cdk-virtual-scroll-viewport>
     </div>
 </section>
 <ng-template #details let-data>
