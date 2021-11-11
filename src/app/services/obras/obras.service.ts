@@ -48,7 +48,7 @@ export class ObraService {
     getOwnNames({ pieces }): Observable<any> {
         return <Observable<any>>this.http.post(this.apiRoot + 'works/own-names', { ids: pieces });
     }
-    getPercentagesMatch({ pieces, count }): Observable<any> {
-        return <Observable<any>>this.http.post(this.apiRoot + 'works/percentage-matches', { ids: pieces });
+    getPercentagesMatch({ pieces, piece }): Observable<any> {
+        return <Observable<any>>this.http.post(this.apiRoot + 'works/percentage-matches', { ids: pieces, compare: piece});
     }
 }

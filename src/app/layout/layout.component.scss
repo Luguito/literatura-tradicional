@@ -166,3 +166,44 @@ section.form_users {
     }
   }
 }
+
+.display_pieces {
+  display: grid;
+  grid-template-rows: auto;
+
+  .header_table {
+    display: grid;
+    grid-template-columns: 0.5fr repeat(6, 1fr);
+    background-color: #f0f0f0;
+    padding: 0.6em;
+    margin: 2em 2em 0 2em;
+    border-radius: 7px;
+    b {
+      justify-self: center;
+    }
+  }
+  .scrollable_list {
+    height: 15em;
+    margin-top: 1em;
+    .content_table {
+      display: grid;
+      grid-template-columns: 0.5fr repeat(6, 1fr);
+      padding: 1em;
+      margin: 0.5em 2em;
+      b {
+        justify-self: center;
+      }
+      b.corpus {
+        display: grid;
+        & > p {
+          width: 95%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin: 0;
+          padding-bottom: 15px;
+        }
+      }
+    }
+  }
+}

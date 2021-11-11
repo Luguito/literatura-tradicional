@@ -20,7 +20,8 @@ export class LayoutComponent implements OnInit {
   modalCount: MatDialogRef<any>;
   phrase: Array<any> = [];
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-
+  listFiltered: any;
+  piece;
   constructor(private dialog: MatDialog, private fb: FormBuilder, private router: Router,
     private oService: ObraService, private mat: MatSnackBar,
     private storage: StorageService, private userService: UserService) { }
@@ -80,7 +81,7 @@ export class LayoutComponent implements OnInit {
     let nameTemplate = (<string>template['_declarationTContainer'].localNames[0]).split('_')[1]
 
     this.modalCount = this.dialog.open(template, {
-      width: '500px',
+      width: '900px',
       data: {
         name: nameTemplate,
         method,
@@ -89,12 +90,43 @@ export class LayoutComponent implements OnInit {
     });
   }
 
+  filtrarObras(obj) {
+    this.mat.open('Filtrando Obras...', '...')
+
+    this.oService.postFilters(obj).toPromise().then(v => {
+      this.listFiltered = v.data;
+      this.storage.emittedPieces(v.data);
+    }).then(() => {
+      this.mat.dismiss();
+    })
+  }
+
+  selectOnePiece(piece) {
+    this.piece = piece._id
+  }
+
   goToSearch(count, method, link) {
     window.dispatchEvent(new Event('clearResults'))
     this.mat.open('Analizando Obras...');
     if (!this.pieces) {
       this.mat.dismiss();
       return swal.fire('Seleccione alguna obra', 'Para usar las opciones de analisis debe seleccionar alguna obra previamente', 'info')
+    }
+    if(['getPercentagesMatch'].includes(method)){
+      let pieces = [];
+
+      this.pieces.pieces.map(v => {
+        pieces.push(v._id)
+      })
+
+      this.oService[method]({ pieces, piece: this.piece, method }).toPromise().then((v) => {
+        if (v.data.computed.length == 0) {
+          this.mat.dismiss();
+          return swal.fire('Informacion', 'No se encontraron coincidencias', 'info');
+        }
+        this.storage.sendResults({ results: v.data.computed, pieces: this.pieces.pieces });
+        this.mat.dismiss();
+      })
     }
     if (['getWordMonit'].includes(method)) {
       let pieces = [];
@@ -112,7 +144,7 @@ export class LayoutComponent implements OnInit {
         this.storage.sendResults({ results: v.data.computed, pieces: this.pieces.pieces });
         this.mat.dismiss();
       })
-    } else {
+    } else if(!['getPercentagesMatch'].includes(method)) {
       let pieces = [];
 
       this.pieces.pieces.map(v => {
@@ -189,9 +221,12 @@ import { MatChipsModule } from '@angular/material/chips'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { DetailsComponent } from '../details/details.component';
+import { FiltersModule } from '../filters/filters.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 
 @NgModule({
-  imports: [MatButtonModule, LayoutRouting, CommonModule, MatIconModule, MatInputModule, MatExpansionModule, MatChipsModule,
+  imports: [ScrollingModule, FiltersModule, MatButtonModule, LayoutRouting, CommonModule, MatIconModule, MatInputModule, MatExpansionModule, MatChipsModule,
     MatSnackBarModule, MatRippleModule, ReactiveFormsModule, MatSidenavModule, MatDialogModule],
   exports: [],
   declarations: [LayoutComponent],
