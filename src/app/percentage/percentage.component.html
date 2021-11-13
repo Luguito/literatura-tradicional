@@ -1,0 +1,45 @@
+<app-filters (filtersApplied)="filtrarObras($event)" [buttons]="true"></app-filters>
+<div class="display_pieces">
+    <div class="header_table">
+        <b>
+            <i class="far fa-circle"></i>
+            <!-- <i class="far fa-check-circle" *ngIf="checkAll" style="color: green;"></i> -->
+        </b>
+        <b>Codigo</b>
+        <b>Titulo</b>
+        <b>Contenido</b>
+        <b>Departamento</b>
+        <b>Municipio</b>
+        <b>Tipo de obra</b>
+    </div>
+    <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="scrollable_list">
+        <div class="content_table" *ngFor="let piece of obras">
+            <b (click)="selectOnePiece(piece)">
+                <i class="far fa-check-circle" *ngIf="select?.includes(piece)" style="color: green;"></i>
+                <i class="far fa-circle" *ngIf="!select?.includes(piece)"></i>
+            </b>
+            <b>
+                {{piece?.code}}
+            </b>
+            <b>
+                {{piece?.title}}
+            </b>
+            <b class="corpus">
+                <p>{{piece?.corpus}}</p>
+            </b>
+            <b>
+                {{piece?.location?.state}}
+            </b>
+            <b>
+                {{piece?.location?.city}}
+            </b>
+            <b>
+                {{piece?.type}}
+            </b>
+        </div>
+    </cdk-virtual-scroll-viewport>
+</div>
+<footer style="display: flex;align-items: center;justify-content: center; gap: 2em;">
+    <button mat-button (click)="closeModal.emit()">Cancelar</button>
+    <button mat-button color="accent" (click)="searchPercentaje()">Buscar</button>
+</footer>

@@ -29,11 +29,8 @@ export class BlogService {
         formData.append('status', post.status);
         formData.append('title', post.title);
         formData.append('type', post.type);
-        
-        console.log(tag)
         formData.append('tags', tag);
 
-        console.log(post)
         return (<Observable<IPostGetter>>this.http.post(this.apiRoot + 'post', formData))
     }
     updatePost(post_id: string, post: IPostUpdate): Observable<IPostResponse> {

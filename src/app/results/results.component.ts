@@ -1,24 +1,25 @@
-import { Component, OnInit, NgModule, TemplateRef } from '@angular/core';
+import { Component, OnInit, NgModule, TemplateRef, OnDestroy} from '@angular/core';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { ObraService } from '../services/obras/obras.service'
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../storage.service';
 import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { take, takeLast } from 'rxjs/operators';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
   piecesId: any = []
   title: string;
   listPieces = [];
   listResults = [];
   modalRef: MatDialogRef<any>;
   constructor(private route: ActivatedRoute, private oS: ObraService, private storage: StorageService,
-    private mat: MatDialog, private router:Router) {
+    private mat: MatDialog, private router: Router) {
     this.route.params.subscribe(query => {
       this.title = (<string>query.type).split('-').join(' ');
     });
@@ -33,6 +34,17 @@ export class ResultsComponent implements OnInit {
       this.listPieces = v.pieces;
       this.listResults = v.results;
     });
+    if(localStorage.getItem('result')) {
+      let result = JSON.parse(localStorage.getItem('result'));
+      this.listResults = result['results'];
+      this.listPieces = result['pieces'];
+    }
+  }
+
+  ngOnDestroy() {
+    if(localStorage.getItem('result')) {
+      localStorage.removeItem('result');
+    }
   }
 
   goBack() {
@@ -45,8 +57,8 @@ export class ResultsComponent implements OnInit {
     })
   }
 
-  goToDetails(data){
-    this.router.navigateByUrl('app/details/'+ data._id).then(() => {
+  goToDetails(data) {
+    this.router.navigateByUrl('app/details/' + data._id).then(() => {
       this.modalRef.close()
     })
   }
@@ -54,7 +66,7 @@ export class ResultsComponent implements OnInit {
   /**
    * @description Download results of pieces analized
    */
-  exportResults(){
+  exportResults() {
     let csvResult = [...this.listResults.map(result => [
       result.item,
       result.frequency
@@ -68,7 +80,7 @@ export class ResultsComponent implements OnInit {
     link.setAttribute("href", encoded);
     link.setAttribute("download", "resultados.csv");
     document.body.appendChild(link);
-    
+
     link.click();
   }
 }

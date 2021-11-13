@@ -41,8 +41,7 @@
                                     Parrafos con el mismo
                                     inicio</p>
                                 <p (click)="goToSearch('', 'getOwnNames', 'nombres-propios')">Nombres Propios</p>
-                                <p (click)="openModal(percentaje, 'getPercentagesMatch', 'porcentaje-de-coincidencia')">Porcentajes de
-                                    coincidencias</p>
+                                <p (click)="openPercetage()">Porcentajes de coincidencias</p>
                             </mat-expansion-panel>
                         </mat-accordion>
                     </mat-expansion-panel>
@@ -180,50 +179,6 @@
         <button mat-button color="accent" (click)="goToSearch(phrase, data.method, data.link)">Buscar</button>
     </footer>
 </ng-template>
-<ng-template #percentaje let-data>
-    <app-filters (filtersApplied)="filtrarObras($event)" [buttons]="true"></app-filters>
-    <div class="display_pieces">
-        <div class="header_table">
-            <b (click)="selectAllPieces()">
-                <i class="far fa-circle" *ngIf="!checkAll"></i>
-                <i class="far fa-check-circle" *ngIf="checkAll" style="color: green;"></i>
-            </b>
-            <b>Codigo</b>
-            <b>Titulo</b>
-            <b>Contenido</b>
-            <b>Departamento</b>
-            <b>Municipio</b>
-            <b>Tipo de obra</b>
-        </div>
-        <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="scrollable_list">
-            <div class="content_table" *ngFor="let piece of listFiltered">
-                <b (click)="selectOnePiece(piece)">
-                    <i class="far fa-check-circle" *ngIf="piece?.select" style="color: green;"></i>
-                    <i class="far fa-circle" *ngIf="!piece?.select"></i>
-                </b>
-                <b (click)="openDetails(piece)" class="pointer">
-                    {{piece?.code}}
-                </b>
-                <b>
-                    {{piece?.title}}
-                </b>
-                <b class="corpus">
-                    <p>{{piece?.corpus}}</p>
-                </b>
-                <b>
-                    {{piece?.location?.state}}
-                </b>
-                <b>
-                    {{piece?.location?.city}}
-                </b>
-                <b>
-                    {{piece?.type}}
-                </b>
-            </div>
-        </cdk-virtual-scroll-viewport>
-    </div>
-    <footer style="display: flex;align-items: center;justify-content: center; gap: 2em;">
-        <button mat-button (click)="modalCount.close()">Cancelar</button>
-        <button mat-button color="accent" (click)="goToSearch(phrase, data.method, data.link)">Buscar</button>
-    </footer>
-</ng-template>
+<!-- <ng-template #percentaje let-data>
+    <app-percentage [selecteds]="pieces.pieces" (closeModal)="modalCount.close()"></app-percentage>
+</ng-template> -->

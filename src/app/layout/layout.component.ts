@@ -166,6 +166,19 @@ export class LayoutComponent implements OnInit {
     }).catch(e => console.error(e));
   }
 
+  openPercetage(){
+    let modalRef = this.dialog.open(PercentageComponent, {
+      width: '70em',
+      maxWidth: '',
+      data: this.pieces.pieces
+    });
+
+    let closeSub = modalRef.componentInstance.closeModal.subscribe(() => {
+      modalRef.close();
+      closeSub.unsubscribe();
+    });
+  }
+
   add(event): void {
     const value = (event.value || '').trim();
 
@@ -212,7 +225,7 @@ import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dial
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
-import { MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms'
 import { UserService, ObraService } from '../services';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -221,12 +234,10 @@ import { MatChipsModule } from '@angular/material/chips'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { DetailsComponent } from '../details/details.component';
-import { FiltersModule } from '../filters/filters.component';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-
+import { PercentageModule, PercentageComponent } from '../percentage/percentage.component';
 
 @NgModule({
-  imports: [ScrollingModule, FiltersModule, MatButtonModule, LayoutRouting, CommonModule, MatIconModule, MatInputModule, MatExpansionModule, MatChipsModule,
+  imports: [PercentageModule, MatButtonModule, LayoutRouting, CommonModule, MatIconModule, MatInputModule, MatExpansionModule, MatChipsModule,
     MatSnackBarModule, MatRippleModule, ReactiveFormsModule, MatSidenavModule, MatDialogModule],
   exports: [],
   declarations: [LayoutComponent],
